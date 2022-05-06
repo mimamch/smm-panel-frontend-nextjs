@@ -7,22 +7,22 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 export const getServerSideProps = async (ctx) => {
-  const category = await axios.get(
-    "https://api.mimamch.online/api/v1/services/category"
-  );
+  // const category = await axios.get(
+  //   "https://api.mimamch.online/api/v1/services/category"
+  // );
 
   return {
     props: {
-      category: category.data.data,
+      // category: category.data.data,
       token:
-        ctx.req.cookies.token ||
+        ctx.req.cookies.jwt ||
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjZkMTAzOWUzY2ZlODc5ODQ4MTk5N2QiLCJ1c2VybmFtZSI6Im1pbWFtY2giLCJmdWxsTmFtZSI6Ik11aGFtbWFkIEltYW0gQ2hvaXJ1ZGluIiwiZW1haWwiOiJtaW1hbWNoMjhAZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIwODU4Mzg3MDc4MjgiLCJpYXQiOjE2NTE3NjAwNzJ9.azPBZgXiO2gmL-AZ7tZHRg14JqSsRh8WoxvMoSKmt20",
     },
   };
 };
 
 export default function Services(props) {
-  const [category, setcategory] = useState(props.category);
+  const [category, setcategory] = useState([]);
   const [services, setservices] = useState([]);
   const [service, setService] = useState({});
   const [quantity, setquantity] = useState(0);
@@ -92,6 +92,16 @@ export default function Services(props) {
         setService(serv.data.data.query);
       });
   };
+
+  const getCategory = () => {
+    axios
+      .get("https://api.mimamch.online/api/v1/services/category")
+      .then((res) => setcategory(res.data.data));
+  };
+
+  useEffect(() => {
+    getCategory();
+  }, []);
 
   useEffect(() => {
     const hargaBayar = () => {

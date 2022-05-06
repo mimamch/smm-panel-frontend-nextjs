@@ -4,19 +4,22 @@ import Script from "next/script";
 export default function Js() {
   return (
     <>
-      <Script src="/vendor/jquery/jquery.min.js" strategy="beforeInteractive" />
       <Script
-        src="/vendor/bootstrap/js/bootstrap.bundle.min.js"
+        src="/assets/vendor/jquery/jquery.min.js"
+        strategy="beforeInteractive"
+      />
+      <Script
+        src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"
         strategy="beforeInteractive"
       />
 
       <Script
-        src="/vendor/jquery-easing/jquery.easing.min.js"
+        src="/assets/vendor/jquery-easing/jquery.easing.min.js"
         strategy="beforeInteractive"
       />
 
       {/* <!-- Custom scripts for all pages--> */}
-      <Script src="/js/sb-admin-2.js" />
+      <Script src="/assets/js/sb-admin-2.min.js" />
     </>
   );
 }

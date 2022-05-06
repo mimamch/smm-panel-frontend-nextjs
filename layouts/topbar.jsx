@@ -159,7 +159,7 @@ export default function Topbar() {
               <div className="dropdown-list-image mr-3">
                 <img
                   className="rounded-circle"
-                  src="/img/undraw_profile_1.svg"
+                  src="/assets/img/undraw_profile_1.svg"
                   alt="..."
                 />
                 <div className="status-indicator bg-success"></div>
@@ -176,7 +176,7 @@ export default function Topbar() {
               <div className="dropdown-list-image mr-3">
                 <img
                   className="rounded-circle"
-                  src="/img/undraw_profile_2.svg"
+                  src="/assets/img/undraw_profile_2.svg"
                   alt="..."
                 />
                 <div className="status-indicator"></div>
@@ -193,7 +193,7 @@ export default function Topbar() {
               <div className="dropdown-list-image mr-3">
                 <img
                   className="rounded-circle"
-                  src="/img/undraw_profile_3.svg"
+                  src="/assets/img/undraw_profile_3.svg"
                   alt="..."
                 />
                 <div className="status-indicator bg-warning"></div>
@@ -210,7 +210,7 @@ export default function Topbar() {
               <div className="dropdown-list-image mr-3">
                 <img
                   className="rounded-circle"
-                  src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
+                  src="/assets/img/undraw_profile_3.svg"
                   alt="..."
                 />
                 <div className="status-indicator bg-success"></div>
@@ -250,7 +250,7 @@ export default function Topbar() {
             </span>
             <img
               className="img-profile rounded-circle"
-              src="/img/undraw_profile.svg"
+              src="/assets/img/undraw_profile.svg"
             />
           </a>
           {/* <!-- Dropdown - User Information --> */}
