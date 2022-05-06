@@ -38,19 +38,23 @@ export default function Home(props) {
                       href="/login"
                       className="btn btn-dark btn-lg  btn-icon-split"
                     >
-                      <span className="icon text-gray-600">
-                        <i className="fas fa-sign-in-alt text-gray-200"></i>
-                      </span>
-                      <span className="text">Masuk</span>
+                      <>
+                        <span className="icon text-gray-600">
+                          <i className="fas fa-sign-in-alt text-gray-200"></i>
+                        </span>
+                        <span className="text">Masuk</span>
+                      </>
                     </Link>
                     <Link
                       href="/register"
                       className="btn btn-primary  btn-icon-split ml-3 btn-lg"
                     >
-                      <span className="icon text-gray-600">
-                        <i className="fas fa-users text-gray-200"></i>
-                      </span>
-                      <span className="text">Daftar</span>
+                      <>
+                        <span className="icon text-gray-600">
+                          <i className="fas fa-users text-gray-200"></i>
+                        </span>
+                        <span className="text">Daftar</span>
+                      </>
                     </Link>
                   </div>
                 </div>
