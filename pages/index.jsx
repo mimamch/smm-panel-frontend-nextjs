@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Wrapper from "../layouts/wrapper";
 import jwtDecode from "jwt-decode";
+import Link from "next/link";
 export async function getServerSideProps(context) {
   let isLogin = false;
   if (context.req.cookies.jwt) {
@@ -33,7 +34,7 @@ export default function Home(props) {
                 </ul>
                 <div className="row">
                   <div className="col ">
-                    <a
+                    <Link
                       href="/login"
                       className="btn btn-dark btn-lg  btn-icon-split"
                     >
@@ -41,8 +42,8 @@ export default function Home(props) {
                         <i className="fas fa-sign-in-alt text-gray-200"></i>
                       </span>
                       <span className="text">Masuk</span>
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       href="/register"
                       className="btn btn-primary  btn-icon-split ml-3 btn-lg"
                     >
@@ -50,7 +51,7 @@ export default function Home(props) {
                         <i className="fas fa-users text-gray-200"></i>
                       </span>
                       <span className="text">Daftar</span>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
