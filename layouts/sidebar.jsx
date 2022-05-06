@@ -39,7 +39,7 @@ export default function Sidebar(props) {
         {/* <!-- Nav Item - Pages Collapse Menu --> */}
         <li className="nav-item">
           <a className="nav-link" href="/login">
-            <i class="fas fa-list"></i>
+            <i className="fas fa-list"></i>
             <span>Daftar Layanan</span>
           </a>
         </li>
@@ -87,7 +87,7 @@ export default function Sidebar(props) {
         {/* <!-- Nav Item - Tables --> */}
         <li className="nav-item">
           <a className="nav-link" href="tables.html">
-            <i class="fas fa-phone"></i>
+            <i className="fas fa-phone"></i>
             <span>Kontak</span>
           </a>
         </li>

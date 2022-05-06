@@ -19,7 +19,9 @@ export default function Login() {
           username,
           password,
         },
-        { withCredentials: true, credentials: "include" }
+        {
+          withCredentials: true,
+        }
       )
       .then((e) => {
         setCookie(null, "jwt", e.data.token);
