@@ -245,11 +245,11 @@ export default function Topbar(props) {
           </li>
         ) : (
           <li className="nav-item align-items-center row mx-3">
-            <a href="/login" class="btn btn-dark btn-sm btn-icon-split">
-              <span class="icon text-gray-600">
-                <i class="fas fa-sign-in-alt"></i>
+            <a href="/login" className="btn btn-dark btn-sm btn-icon-split">
+              <span className="icon text-gray-600">
+                <i className="fas fa-sign-in-alt"></i>
               </span>
-              <span class="text">Masuk</span>
+              <span className="text">Masuk</span>
             </a>
           </li>
         )}
