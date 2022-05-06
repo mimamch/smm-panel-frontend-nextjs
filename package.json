@@ -13,14 +13,18 @@
     "axios": "^0.27.2",
     "cookies": "^0.8.0",
     "jquery": "^3.6.0",
+    "jwt-decode": "^3.1.2",
     "next": "12.1.6",
+    "next-redux-wrapper": "^7.0.5",
     "nookies": "^2.5.2",
     "react": "18.1.0",
     "react-dom": "18.1.0",
+    "react-redux": "^8.0.1",
     "sweetalert2": "^11.4.10"
   },
   "devDependencies": {
     "eslint": "8.14.0",
-    "eslint-config-next": "12.1.6"
+    "eslint-config-next": "12.1.6",
+    "redux-devtools-extension": "^2.13.9"
   }
 }

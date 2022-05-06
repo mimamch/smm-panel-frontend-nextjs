@@ -13,8 +13,8 @@ export default function Sidebar(props) {
           className="sidebar-brand d-flex align-items-center justify-content-center"
           href="/"
         >
-          <div className="sidebar-brand-icon rotate-n-15">
-            <i className="fas fa-laugh-wink"></i>
+          <div className="sidebar-brand-icon ">
+            <i class="fas fa-heart"></i>
           </div>
           <div className="sidebar-brand-text mx-3">SMM</div>
         </a>
