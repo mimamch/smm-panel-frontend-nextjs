@@ -34,27 +34,21 @@ export default function Home(props) {
                 </ul>
                 <div className="row">
                   <div className="col ">
-                    <Link
-                      href="/login"
-                      className="btn btn-dark btn-lg  btn-icon-split"
-                    >
-                      <>
+                    <Link href="/login">
+                      <a className="btn btn-dark btn-lg  btn-icon-split">
                         <span className="icon text-gray-600">
                           <i className="fas fa-sign-in-alt text-gray-200"></i>
                         </span>
                         <span className="text">Masuk</span>
-                      </>
+                      </a>
                     </Link>
-                    <Link
-                      href="/register"
-                      className="btn btn-primary  btn-icon-split ml-3 btn-lg"
-                    >
-                      <>
+                    <Link href="/register">
+                      <a className="btn btn-primary  btn-icon-split ml-3 btn-lg">
                         <span className="icon text-gray-600">
                           <i className="fas fa-users text-gray-200"></i>
                         </span>
                         <span className="text">Daftar</span>
-                      </>
+                      </a>
                     </Link>
                   </div>
                 </div>
