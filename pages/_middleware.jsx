@@ -6,6 +6,9 @@ export default function middleware(req) {
       return NextResponse.redirect(req.nextUrl.origin + "/dashboard");
     return NextResponse.next();
   }
+  if (req.nextUrl.pathname == "/") {
+    return NextResponse.next();
+  }
   if (!req.cookies.jwt)
     return NextResponse.redirect(req.nextUrl.origin + "/login");
 }
