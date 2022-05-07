@@ -79,9 +79,9 @@ export default function Register() {
             <div className="card o-hidden border-0 shadow-sm ">
               <div className="card-body p-0">
                 <Link href="/">
-                  <a class="btn btn-dark btn-icon-split">
-                    <span class="icon text-gray-600 btn-sm ">
-                      <i class="fas fa-home text-gray-200"></i>
+                  <a className="btn btn-dark btn-icon-split">
+                    <span className="icon text-gray-600 btn-sm ">
+                      <i className="fas fa-home text-gray-200"></i>
                     </span>
                   </a>
                 </Link>
