@@ -117,19 +117,17 @@ export default function Services(props) {
       .get(`${process.env.NEXT_PUBLIC_API_ENDPOINT2}/services/category`)
       .then((res) => setcategory(res.data.data));
   };
+  const hargaBayar = (e) => {
+    const rate = parseInt(service.rate || 0);
+    const price = rate / 1000;
+    return settotalPrice(Math.ceil(price * e));
+  };
 
   useEffect(() => {
     getCategory();
   }, []);
 
-  useEffect(() => {
-    const hargaBayar = () => {
-      const rate = parseInt(service.rate);
-      const price = rate / 1000;
-      return settotalPrice(Math.ceil(price * quantity));
-    };
-    hargaBayar();
-  }, [quantity, data]);
+  useEffect(() => {}, [quantity, data]);
 
   return (
     <>
@@ -213,9 +211,9 @@ export default function Services(props) {
                         type="number"
                         className="form-control"
                         placeholder="Masukkan Jumlah"
-                        value={quantity}
                         onChange={(e) => {
                           setquantity(e.target.value);
+                          hargaBayar(e.target.value);
                         }}
                         onWheel={(e) => {
                           return e.target.blur();
@@ -259,14 +257,14 @@ export default function Services(props) {
                     value={`Rp. ${totalPrice || 0}`}
                   />
                 </div>
-                <div className="card-action">
+                <div className="card-action mb-5">
                   <button type="sumbit" className="btn btn-dark ">
                     Pesan Sekarang
                   </button>
                 </div>
               </form>
             </div>
-            <div className="col-md-6 mt-3">
+            <div className="col-md-6 mt-0">
               <div className="card  shadow-sm mb-4">
                 <div className="card-header py-3">
                   <h6 className="m-0 font-weight-bold text-primary">
