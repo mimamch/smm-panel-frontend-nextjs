@@ -4,24 +4,38 @@ import Wrapper from "../../layouts/wrapper";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function Home() {
-  const [userData, setUserData] = useState({});
-  const getUserData = () => {
-    axios
-      .get("https://api.mimamch.online/api/v1/user/profile", {
+export const getServerSideProps = async (ctx) => {
+  try {
+    const userData = await axios.get(
+      "https://api.mimamch.online/api/v1/user/profile",
+      {
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjZkMTAzOWUzY2ZlODc5ODQ4MTk5N2QiLCJ1c2VybmFtZSI6Im1pbWFtY2giLCJmdWxsTmFtZSI6Ik11aGFtbWFkIEltYW0gQ2hvaXJ1ZGluIiwiZW1haWwiOiJtaW1hbWNoMjhAZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIwODU4Mzg3MDc4MjgiLCJpYXQiOjE2NTE3NjAwNzJ9.azPBZgXiO2gmL-AZ7tZHRg14JqSsRh8WoxvMoSKmt20",
+          Authorization: `Bearer ${ctx.req.cookies.jwt}`,
         },
-      })
-      .then((res) => {
-        setUserData(res.data.data);
-      });
-  };
+      }
+    );
 
-  useEffect(() => {
-    getUserData();
-  }, []);
+    return {
+      props: {
+        // category: category.data.data,
+        token: ctx.req.cookies.jwt,
+        userData: userData.data.data,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        // category: category.data.data,
+        token: ctx.req.cookies.jwt,
+        userData: { username: "guest" },
+      },
+    };
+  }
+};
+
+export default function Home(props) {
+  const [userData, setUserData] = useState(props.userData);
+
   return (
     <>
       <Head>
