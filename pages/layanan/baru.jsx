@@ -55,10 +55,9 @@ export default function Services(props) {
           title: "BERHASIL",
           data: res.data,
         });
-        console.log(res, data);
         return Swal.fire({
           title: "BERHASIL!",
-          html: `ORDER ID : <b>${res.data.history.orderId}</b> <br/> SALDO AKHIR : <b>${res.data.history.finalBalance}</b>`,
+          html: `ORDER ID : <b>${res.data.history.orderId}</b> <br/> SALDO AKHIR : <b>${res.data.history.balanceAfter}</b>`,
           icon: "success",
           confirmButtonText: "OK",
         });
