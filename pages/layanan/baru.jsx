@@ -88,7 +88,7 @@ export default function Services(props) {
     axios
       .get(`https://api.mimamch.online/api/v1/services?id=${e.target.value}`)
       .then((serv) => {
-        setService(serv.data.data.query);
+        setService(serv.data.data);
       });
   };
 
