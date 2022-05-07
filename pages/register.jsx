@@ -7,26 +7,43 @@ import Head from "next/head";
 import Script from "next/script";
 import Js from "../layouts/js";
 
-export default function Login() {
+export default function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [fullName, setFullName] = useState("");
   const router = useRouter();
-  function login(e) {
+  function register(e) {
     e.preventDefault();
+    if (password != confirmPassword)
+      return Swal.fire({
+        title: "Upsss!",
+        text: "Password dan Konfirmasi Password Tidak Sama",
+        icon: "error",
+      });
     axios
       .post(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/user/login`,
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/user/register`,
         {
           username,
           password,
+          fullName,
+          phoneNumber,
+          email,
         },
         {
           withCredentials: true,
         }
       )
       .then((e) => {
-        setCookie(null, "jwt", e.data.token);
-        router.push("/dashboard");
+        Swal.fire({
+          title: "Yeyyy!",
+          text: "Berhasil Mendaftar, Silahkan Masuk.",
+          icon: "success",
+        });
+        router.push("/login");
       })
       .catch((e) => {
         // console.log(e);
@@ -50,7 +67,7 @@ export default function Login() {
     <>
       <div className="container">
         <Head>
-          <title>MASUK</title>
+          <title>DAFTAR</title>
         </Head>
         {/* <!-- Outer Row --> */}
         <div
@@ -67,19 +84,49 @@ export default function Login() {
                     <div className="p-5">
                       <div className="text-center">
                         <h1 className="h4 text-gray-900 mb-4 font-weight-bold">
-                          MASUK
+                          Daftar
                         </h1>
                       </div>
-                      <form className="user" onSubmit={login}>
+                      <form className="user" onSubmit={register}>
+                        <div className="form-group">
+                          <input
+                            onChange={(e) => setFullName(e.target.value)}
+                            type="text"
+                            className="form-control form-control-user"
+                            id="fullName"
+                            aria-describedby="emailHelp"
+                            placeholder="Masukkan Nama Lengkap"
+                          />
+                        </div>
                         <div className="form-group">
                           <input
                             onChange={(e) => setUsername(e.target.value)}
                             type="text"
                             className="form-control form-control-user"
+                            id="username"
+                            aria-describedby="username"
+                            placeholder="Buat Username"
+                            autoCapitalize="off"
+                          />
+                        </div>
+                        <div className="form-group">
+                          <input
+                            onChange={(e) => setEmail(e.target.value)}
+                            type="text"
+                            className="form-control form-control-user"
                             id="exampleInputEmail"
                             aria-describedby="emailHelp"
-                            placeholder="Masukkan Email / Username"
-                            autoCapitalize="off"
+                            placeholder="Masukkan Email Anda"
+                          />
+                        </div>
+                        <div className="form-group">
+                          <input
+                            onChange={(e) => setPhoneNumber(e.target.value)}
+                            type="number"
+                            className="form-control form-control-user"
+                            id="exampleInputEmail"
+                            aria-describedby="emailHelp"
+                            placeholder="Masukkan Nomor Telepon Anda"
                           />
                         </div>
                         <div className="form-group">
@@ -88,7 +135,16 @@ export default function Login() {
                             type="password"
                             className="form-control form-control-user"
                             id="exampleInputPassword"
-                            placeholder="Password"
+                            placeholder="Buat Kata Sandi"
+                          />
+                        </div>
+                        <div className="form-group">
+                          <input
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            type="password"
+                            className="form-control form-control-user"
+                            id="exampleInputPassword"
+                            placeholder="Ulangi Kata Sandi"
                           />
                         </div>
 
@@ -103,13 +159,8 @@ export default function Login() {
                       <div className="row">
                         {" "}
                         <div className="text-center col-6">
-                          <a className="small" href="forgot-password.html">
-                            Lupa Password?
-                          </a>
-                        </div>
-                        <div className="text-center col-6">
-                          <a className="small" href="register.html">
-                            Daftar Sekarang!
+                          <a className="small" href="/login">
+                            Sudah Punya Akun? Masuk
                           </a>
                         </div>
                       </div>
