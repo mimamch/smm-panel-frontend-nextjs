@@ -1,22 +1,15 @@
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
+import parse from "html-react-parser";
 import Head from "next/head";
-import Script from "next/script";
 import Wrapper from "../../layouts/wrapper";
 import axios from "axios";
 import Swal from "sweetalert2";
 
 export const getServerSideProps = async (ctx) => {
-  // const category = await axios.get(
-  //   "https://api.mimamch.online/api/v1/services/category"
-  // );
-
   return {
     props: {
       // category: category.data.data,
-      token:
-        ctx.req.cookies.jwt ||
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjZkMTAzOWUzY2ZlODc5ODQ4MTk5N2QiLCJ1c2VybmFtZSI6Im1pbWFtY2giLCJmdWxsTmFtZSI6Ik11aGFtbWFkIEltYW0gQ2hvaXJ1ZGluIiwiZW1haWwiOiJtaW1hbWNoMjhAZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIwODU4Mzg3MDc4MjgiLCJpYXQiOjE2NTE3NjAwNzJ9.azPBZgXiO2gmL-AZ7tZHRg14JqSsRh8WoxvMoSKmt20",
+      token: ctx.req.cookies.jwt,
     },
   };
 };
@@ -30,16 +23,36 @@ export default function Services(props) {
   const [target, setTarget] = useState("");
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({});
-  const pesan = (e) => {
+  const pesan = async (e) => {
     e.preventDefault();
-    // setmodal(true);
-    // setLoading(true);
+
+    // CONFIRM BUTTON
+    const confirm = await Swal.fire({
+      title: "Apakah Anda Yakin?",
+      html: `<b>Layanan</b> : ${service.name}<br/><b>Harga</b> : Rp. ${totalPrice},-<br/><b>Jumlah : </b> ${quantity}<br/><b>Target</b> : ${target}`,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      allowOutsideClick: false,
+      confirmButtonText: "Yakin, Beli Sekarang!",
+      cancelButtonText: "Batal",
+    });
+    if (!confirm.isConfirmed) return;
     const headers = {
       Authorization: `Bearer ${props.token}`,
     };
+    Swal.fire({
+      title: "Loading!",
+      html: "Jangan tutup halaman ini!", // add html attribute if you want or remove
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
     axios
       .post(
-        "https://api.mimamch.online/api/v1/order/new-order",
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/order/new-order`,
         {
           service: service.serviceId,
           quantity: quantity,
@@ -55,9 +68,12 @@ export default function Services(props) {
           title: "BERHASIL",
           data: res.data,
         });
+        setTarget("");
+        setquantity(0);
+        Swal.close();
         return Swal.fire({
           title: "BERHASIL!",
-          html: `ORDER ID : <b>${res.data.history.orderId}</b> <br/> SALDO AKHIR : <b>Rp. ${res.data.history.balanceAfter}</b>`,
+          html: `<b>Order ID :</b> ${res.data.history.orderId}<br/><b>Layanan :</b> ${res.data.history.serviceName}<br/><b>Jumlah :</b> ${res.data.history.quantity}<br/><b>Harga :</b> ${res.data.history.amount}<br/><b>Saldo Awal :</b> Rp. ${res.data.history.balanceBefore}<br/><b>Saldo Akhir :</b> Rp. ${res.data.history.balanceAfter}`,
           icon: "success",
           confirmButtonText: "OK",
         });
@@ -80,13 +96,17 @@ export default function Services(props) {
   const changeCategory = (e) => {
     axios
       .get(
-        `https://api.mimamch.online/api/v1/services/category?cat=${e.target.value}`
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/services/category?cat=${e.target.value}`
       )
-      .then((res) => setservices(res.data.data));
+      .then((res) => setservices(res.data.data))
+      .then((e) => setService({}));
   };
   const changeService = (e) => {
+    if (e.target.value == 0) return;
     axios
-      .get(`https://api.mimamch.online/api/v1/services?id=${e.target.value}`)
+      .get(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/services?id=${e.target.value}`
+      )
       .then((serv) => {
         setService(serv.data.data);
       });
@@ -94,7 +114,7 @@ export default function Services(props) {
 
   const getCategory = () => {
     axios
-      .get("https://api.mimamch.online/api/v1/services/category")
+      .get(`${process.env.NEXT_PUBLIC_API_ENDPOINT2}/services/category`)
       .then((res) => setcategory(res.data.data));
   };
 
@@ -150,12 +170,10 @@ export default function Services(props) {
                   <label>Layanan</label>
                   <select
                     onChange={changeService}
-                    defaultValue=""
-                    className="form-control select2"
+                    defaultValue="0"
+                    className="form-control "
                   >
-                    <option value="" disabled>
-                      Pilih Layanan
-                    </option>
+                    <option value="0">Pilih Layanan</option>
                     {services.map((e) => {
                       return (
                         <option key={e.serviceId} value={e.serviceId}>
@@ -173,7 +191,7 @@ export default function Services(props) {
                     id="disableinput"
                     placeholder="Rp.xxxxxx"
                     disabled
-                    value={`Rp. ${service?.rate || 0}`}
+                    value={`Rp. ${service.rate || 0}`}
                   />
                 </div>
                 <div className="form-group">
@@ -181,23 +199,54 @@ export default function Services(props) {
                   <input
                     type="text"
                     onChange={(e) => setTarget(e.target.value)}
+                    value={target}
                     className="form-control"
                     placeholder="Link/Username Target"
+                    autoCapitalize="off"
                   />
                 </div>
-                <div className="form-group">
-                  <label>Jumlah</label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    placeholder="Masukkan Jumlah"
-                    onChange={(e) => {
-                      setquantity(e.target.value);
-                    }}
-                    onWheel={(e) => {
-                      return e.target.blur();
-                    }}
-                  />
+                <div className="row ">
+                  <div className="col-sm-6">
+                    <div className="form-group">
+                      <label>Jumlah</label>
+                      <input
+                        type="number"
+                        className="form-control"
+                        placeholder="Masukkan Jumlah"
+                        value={quantity}
+                        onChange={(e) => {
+                          setquantity(e.target.value);
+                        }}
+                        onWheel={(e) => {
+                          return e.target.blur();
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-6 col-sm-3">
+                    <div className="form-group">
+                      <label>Jumlah Min.</label>
+                      <input
+                        type="number"
+                        className="form-control"
+                        placeholder="0"
+                        value={service.min || 0}
+                        disabled
+                      />
+                    </div>
+                  </div>
+                  <div className="col-6 col-sm-3">
+                    <div className="form-group">
+                      <label>Jumlah Maks.</label>
+                      <input
+                        type="number"
+                        className="form-control"
+                        placeholder="0"
+                        value={service.max || 0}
+                        disabled
+                      />
+                    </div>
+                  </div>
                 </div>
                 <div className="form-group">
                   <label htmlFor="hargaBayar">Harga Bayar</label>
@@ -215,25 +264,82 @@ export default function Services(props) {
                     Pesan Sekarang
                   </button>
                 </div>
-                <div className="form-group mt-5">
-                  <label>Deskripsi layanan</label>
-                  <div
-                    style={{
-                      minHeight: "20px",
-                      overflowY: "auto",
-                      wordWrap: "break-word",
-                      padding: "0 10px",
-                      whiteSpace: "pre-wrap",
-                    }}
-                    // disabled
-                  >
-                    {service.desc}
-                  </div>
-                </div>
               </form>
             </div>
-            <div className="col-md-6">
-              <p>Ketentuan</p>
+            <div className="col-md-6 mt-3">
+              <div className="card  shadow-sm mb-4">
+                <div className="card-header py-3">
+                  <h6 className="m-0 font-weight-bold text-primary">
+                    Deskripsi Layanan
+                  </h6>
+                </div>
+                <div className="card-body">
+                  {service.desc && parse(service.desc)}
+                </div>
+              </div>
+              <div className="card shadow-sm mb-4">
+                <div className="card-header py-3">
+                  <h6 className="m-0 font-weight-bold text-primary">
+                    Wajib Baca Sebelum Order!
+                  </h6>
+                </div>
+                <div className="card-body px-3 py-1">
+                  <div className="row ">
+                    <div className="col-sm-6">
+                      {/* INNER CARD */}
+                      <div className="card border-0">
+                        <div className="card-body px-3 py-2">
+                          <h6 className="m-0 font-weight-bold text-gray-600">
+                            Langkah-langkah membuat pesanan baru:
+                          </h6>
+                          <ul className="p-1 m-0">
+                            <li>Pilih salah satu Kategori.</li>
+                            <li>
+                              Pilih salah satu layanan yang ingin dipesan.
+                            </li>
+                            <li>
+                              Masukkan target pesanan sesuai ketentuan yang
+                              diberikan layanan tersebut.
+                            </li>
+                            <li>Masukkan jumlah pesanan yang diinginkan.</li>
+                            <li>
+                              Klik tombol Pesan Sekarang! untuk membuat pesanan
+                              baru.
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-sm-6">
+                      {/* INNER CARD */}
+                      <div className="card border-0">
+                        <div className="card-body px-3 py-2">
+                          <h6 className="m-0 font-weight-bold text-gray-600">
+                            Ketentuan saat membuat pesanan baru :
+                          </h6>
+                          <ul className="p-1 m-0">
+                            <li>
+                              Silahkan membuat pesanan sesuai langkah-langkah
+                              diatas.
+                            </li>
+                            <li>
+                              Jika ingin membuat pesanan dengan Target yang sama
+                              dengan pesanan yang sudah pernah dipesan
+                              sebelumnya, mohon menunggu sampai pesanan
+                              sebelumnya selesai diproses.
+                            </li>
+                            <li>
+                              Jika terjadi kesalahan / mendapatkan pesan gagal
+                              yang kurang jelas, silahkan hubungi Kami melalui
+                              halaman TIKET untuk informasi lebih lanjut.
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
