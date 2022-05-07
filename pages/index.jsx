@@ -19,7 +19,7 @@ export default function Home(props) {
       <Head>
         <title>SMM Nusantara</title>
       </Head>
-      <Wrapper isLogin={props.isLogin}>
+      <Wrapper hideNavbar={true} isLogin={props.isLogin}>
         <section>
           <div className="container-fluid">
             <div className="row mt-7">
@@ -32,25 +32,23 @@ export default function Home(props) {
                   <li>Server Tercepat Di Indonesia 💕</li>
                   <li>Telah Dipercaya oleh ribuan orang 😎</li>
                 </ul>
-                <div className="row">
-                  <div className="col ">
-                    <Link href="/login">
-                      <a className="btn btn-dark btn-lg  btn-icon-split">
-                        <span className="icon text-gray-600">
-                          <i className="fas fa-sign-in-alt text-gray-200"></i>
-                        </span>
-                        <span className="text">Masuk</span>
-                      </a>
-                    </Link>
-                    <Link href="/register">
-                      <a className="btn btn-primary  btn-icon-split ml-3 btn-lg">
-                        <span className="icon text-gray-600">
-                          <i className="fas fa-users text-gray-200"></i>
-                        </span>
-                        <span className="text">Daftar</span>
-                      </a>
-                    </Link>
-                  </div>
+                <div className="row justify-content-center align-items-center">
+                  <Link href="/login">
+                    <a className="btn btn-dark btn-lg  btn-icon-split m-2 ">
+                      <span className="icon text-gray-600">
+                        <i className="fas fa-sign-in-alt text-gray-200"></i>
+                      </span>
+                      <span className="text">Masuk</span>
+                    </a>
+                  </Link>
+                  <Link href="/register">
+                    <a className="btn btn-primary  btn-icon-split btn-lg m-2">
+                      <span className="icon text-gray-600">
+                        <i className="fas fa-users text-gray-200"></i>
+                      </span>
+                      <span className="text">Daftar</span>
+                    </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -137,7 +135,7 @@ export default function Home(props) {
                 </p>
                 <div className="row text-center px-3 mt-4">
                   <div className="col-sm-6">
-                    <div className="question-box">
+                    <div className="question-box mb-4">
                       <h4 className="text-center text-gray-700">
                         Apa itu Smm Panel Indonesia?
                       </h4>
@@ -149,7 +147,7 @@ export default function Home(props) {
                     </div>
                   </div>
                   <div className="col-sm-6">
-                    <div className="question-box">
+                    <div className="question-box mb-4">
                       <h4 className="text-gray-700">
                         Apa keuntungan bergabung dengan Kami?
                       </h4>
@@ -160,13 +158,36 @@ export default function Home(props) {
                       </p>
                     </div>
                   </div>
+                  <div className="col-sm-6">
+                    <div className="question-box mb-4">
+                      <h4 className="text-gray-700">
+                        Apakah bisa menjual layanan kepada orang lain?
+                      </h4>
+                      <p>
+                        Tentu bisa. Anda dapat menjadi reseller atau menjual
+                        kembali layanan yang kami sediakan di website. Anda
+                        dapat menjadi penyedia layanan sosial media.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="col-sm-6">
+                    <div className="question-box mb-4">
+                      <h4 className="text-gray-700">
+                        Berapa biaya untuk mendaftar?
+                      </h4>
+                      <p>
+                        Gratis! Kami tidak membebankan biaya pendaftaran untuk
+                        smm panel. Anda hanya akan membayar ketika anda
+                        melakukan pemesanan saja.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
       </Wrapper>
-      ;
     </>
   );
 }
