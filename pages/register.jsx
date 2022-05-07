@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Script from "next/script";
 import Js from "../layouts/js";
+import Link from "next/link";
 
 export default function Register() {
   const [username, setUsername] = useState("");
@@ -77,6 +78,13 @@ export default function Register() {
           <div className="col-sm-12 col-md-6 col-xl-6 my-auto">
             <div className="card o-hidden border-0 shadow-sm ">
               <div className="card-body p-0">
+                <Link href="/">
+                  <a class="btn btn-dark btn-icon-split">
+                    <span class="icon text-gray-600 btn-sm ">
+                      <i class="fas fa-home text-gray-200"></i>
+                    </span>
+                  </a>
+                </Link>
                 {/* <!-- Nested Row within Card Body --> */}
                 <div className="row">
                   {/* <div className="col-lg-6 d-none d-lg-block bg-login-image"></div> */}
@@ -158,10 +166,12 @@ export default function Register() {
                       <hr />
                       <div className="row">
                         {" "}
-                        <div className="text-center col-6">
-                          <a className="small" href="/login">
-                            Sudah Punya Akun? Masuk
-                          </a>
+                        <div className="text-center col-12">
+                          <Link href="/login">
+                            <a className="small text-gray-700 underline">
+                              <u> Sudah Punya Akun? Masuk</u>
+                            </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
