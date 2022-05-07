@@ -19,7 +19,7 @@ export default function Wrapper(props) {
     <>
       <div id="wrapper">
         {/* <!-- Sidebar --> */}
-        {!props.hideNavbar && <Sidebar isLogin={isLogin} />}
+        {!props.hideSidebar && <Sidebar isLogin={isLogin} />}
         {/* <!-- End of Sidebar --> */}
         {/* <!-- Content Wrapper --> */}
         <div id="content-wrapper" className="d-flex flex-column">

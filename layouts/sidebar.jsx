@@ -119,7 +119,7 @@ export default function Sidebar(props) {
         href="/"
       >
         <div className="sidebar-brand-icon rotate-n-15">
-          <i className="fas fa-laugh-wink"></i>
+          <i className="fas fa-heart "></i>
         </div>
         <div className="sidebar-brand-text mx-3">SMM</div>
       </a>

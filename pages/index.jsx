@@ -19,12 +19,12 @@ export default function Home(props) {
       <Head>
         <title>SMM Nusantara</title>
       </Head>
-      <Wrapper hideNavbar={true} isLogin={props.isLogin}>
+      <Wrapper hideSidebar={true} isLogin={props.isLogin}>
         <section>
           <div className="container-fluid">
             <div className="row mt-7">
               <div className="col-lg-9 text-center align-items-center justify-content-center mx-auto">
-                <h2 className=" font-weight-bolder headingTitle text-gray-800 md-">
+                <h2 className=" headingTitle text-gray-800 text-gradient">
                   SMM NUSANTARA
                 </h2>
                 <ul className="list-unstyled heading-text">
