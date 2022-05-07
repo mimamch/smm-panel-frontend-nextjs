@@ -57,7 +57,7 @@ export default function Services(props) {
         });
         return Swal.fire({
           title: "BERHASIL!",
-          html: `ORDER ID : <b>${res.data.history.orderId}</b> <br/> SALDO AKHIR : <b>${res.data.history.balanceAfter}</b>`,
+          html: `ORDER ID : <b>${res.data.history.orderId}</b> <br/> SALDO AKHIR : <b>Rp. ${res.data.history.balanceAfter}</b>`,
           icon: "success",
           confirmButtonText: "OK",
         });
