@@ -5,6 +5,7 @@ import { parseCookies, setCookie, destroyCookie } from "nookies";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Script from "next/script";
+import Js from "../layouts/js";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -117,10 +118,7 @@ export default function Login() {
           </div>
         </div>
       </div>
-      <Script
-        src="/assets/vendor/jquery/jquery.min.js"
-        strategy="beforeInteractive"
-      />
+      <Js />
     </div>
   );
 }

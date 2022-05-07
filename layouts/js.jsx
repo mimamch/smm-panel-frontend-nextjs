@@ -19,7 +19,7 @@ export default function Js() {
       />
 
       {/* <!-- Custom scripts for all pages--> */}
-      <Script src="/assets/js/sb-admin-2.min.js" />
+      <Script src="/assets/js/sb-admin-2.min.js" strategy="beforeInteractive" />
     </>
   );
 }
