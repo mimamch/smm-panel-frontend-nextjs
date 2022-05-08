@@ -22,7 +22,6 @@ export default NextAuth({
             "https://api.mimamch.online/api/v1/user/login",
             credentials
           );
-          console.log(res.data);
 
           const user = jwtDecode(res.data.token);
           user.token = res.data.token;
