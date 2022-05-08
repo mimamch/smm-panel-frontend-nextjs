@@ -122,8 +122,7 @@ export default function Register() {
                             onChange={(e) => setEmail(e.target.value)}
                             type="text"
                             className="form-control form-control-user"
-                            id="exampleInputEmail"
-                            aria-describedby="emailHelp"
+                            id="email"
                             placeholder="Masukkan Email Anda"
                           />
                         </div>
@@ -132,7 +131,7 @@ export default function Register() {
                             onChange={(e) => setPhoneNumber(e.target.value)}
                             type="number"
                             className="form-control form-control-user"
-                            id="exampleInputEmail"
+                            id="phoneNumber"
                             aria-describedby="emailHelp"
                             placeholder="Masukkan Nomor Telepon Anda"
                           />
@@ -142,7 +141,7 @@ export default function Register() {
                             onChange={(e) => setPassword(e.target.value)}
                             type="password"
                             className="form-control form-control-user"
-                            id="exampleInputPassword"
+                            id="password"
                             placeholder="Buat Kata Sandi"
                           />
                         </div>
@@ -151,7 +150,7 @@ export default function Register() {
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             type="password"
                             className="form-control form-control-user"
-                            id="exampleInputPassword"
+                            id="confirmPassword"
                             placeholder="Ulangi Kata Sandi"
                           />
                         </div>
