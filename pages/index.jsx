@@ -17,7 +17,7 @@ export default function Home(props) {
   return (
     <>
       <Head>
-        <title>SMM Panel Termurah SeIndonesia - NUSANTARA SMM</title>
+        <title>SMM Panel Termurah Se-Indonesia - NUSANTARA SMM</title>
       </Head>
       <Wrapper hideSidebar={true}>
         <section>
