@@ -4,6 +4,7 @@ import Sidebar from "./sidebar";
 import Topbar from "./topbar";
 import Footer from "./footer";
 import { getSession } from "next-auth/react";
+import axios from "axios";
 
 export default function Wrapper(props) {
   const [user, setUser] = useState(false);
@@ -12,7 +13,18 @@ export default function Wrapper(props) {
   useEffect(() => {
     (async () => {
       const session = await getSession();
-      if (session) setUser(session.user);
+      if (session) {
+        setUser(session.user);
+        const userData = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_ENDPOINT}/user/profile`,
+          {
+            headers: {
+              Authorization: `Bearer ${session.user.token}`,
+            },
+          }
+        );
+        setUser({ ...user, ...userData.data.data });
+      }
     })();
   }, []);
 

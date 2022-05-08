@@ -1,6 +1,8 @@
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+import { useEffect } from "react";
 export default function Topbar(props) {
   const isLogin = props.isLogin;
+
   return (
     <nav className="navbar navbar-expand navbar-light bg-gray-100 topbar mb-4 static-top shadow-sm">
       {/* <!-- Sidebar Toggle (Topbar) --> */}
@@ -39,7 +41,7 @@ export default function Topbar(props) {
                 className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="alertsDropdown"
               >
-                <h6 className="dropdown-header">Alerts Center</h6>
+                <h6 className="dropdown-header">Alerts Center </h6>
                 <a className="dropdown-item d-flex align-items-center" href="#">
                   <div className="mr-3">
                     <div className="icon-circle bg-dark">
@@ -86,113 +88,17 @@ export default function Topbar(props) {
             </li>
 
             {/* <!-- Nav Item - Messages --> */}
-            <li className="nav-item dropdown no-arrow mx-1">
-              <a
-                className="nav-link dropdown-toggle"
-                href="#"
-                id="messagesDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                <i className="fas fa-envelope fa-fw"></i>
-                {/* <!-- Counter - Messages --> */}
-                <span className="badge badge-danger badge-counter">7</span>
-              </a>
-              {/* <!-- Dropdown - Messages --> */}
-              <div
-                className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                aria-labelledby="messagesDropdown"
-              >
-                <h6 className="dropdown-header">Message Center</h6>
-                <a className="dropdown-item d-flex align-items-center" href="#">
-                  <div className="dropdown-list-image mr-3">
-                    <img
-                      className="rounded-circle"
-                      src="/assets/img/undraw_profile_1.svg"
-                      alt="..."
-                    />
-                    <div className="status-indicator bg-success"></div>
-                  </div>
-                  <div className="font-weight-bold">
-                    <div className="text-truncate">
-                      Hi there! I am wondering if you can help me with a problem
-                      I've been having.
-                    </div>
-                    <div className="small text-gray-500">
-                      Emily Fowler · 58m
-                    </div>
-                  </div>
-                </a>
-                <a className="dropdown-item d-flex align-items-center" href="#">
-                  <div className="dropdown-list-image mr-3">
-                    <img
-                      className="rounded-circle"
-                      src="/assets/img/undraw_profile_2.svg"
-                      alt="..."
-                    />
-                    <div className="status-indicator"></div>
-                  </div>
-                  <div>
-                    <div className="text-truncate">
-                      I have the photos that you ordered last month, how would
-                      you like them sent to you?
-                    </div>
-                    <div className="small text-gray-500">Jae Chun · 1d</div>
-                  </div>
-                </a>
-                <a className="dropdown-item d-flex align-items-center" href="#">
-                  <div className="dropdown-list-image mr-3">
-                    <img
-                      className="rounded-circle"
-                      src="/assets/img/undraw_profile_3.svg"
-                      alt="..."
-                    />
-                    <div className="status-indicator bg-warning"></div>
-                  </div>
-                  <div>
-                    <div className="text-truncate">
-                      Last month's report looks great, I am very happy with the
-                      progress so far, keep up the good work!
-                    </div>
-                    <div className="small text-gray-500">
-                      Morgan Alvarez · 2d
-                    </div>
-                  </div>
-                </a>
-                <a className="dropdown-item d-flex align-items-center" href="#">
-                  <div className="dropdown-list-image mr-3">
-                    <img
-                      className="rounded-circle"
-                      src="/assets/img/undraw_profile_3.svg"
-                      alt="..."
-                    />
-                    <div className="status-indicator bg-success"></div>
-                  </div>
-                  <div>
-                    <div className="text-truncate">
-                      Am I a good boy? The reason I ask is because someone told
-                      me that people say this to all dogs, even if they aren't
-                      good...
-                    </div>
-                    <div className="small text-gray-500">
-                      Chicken the Dog · 2w
-                    </div>
-                  </div>
-                </a>
-                <a
-                  className="dropdown-item text-center small text-gray-500"
-                  href="#"
-                >
-                  Read More Messages
-                </a>
+
+            <div className="topbar-divider"></div>
+            <li className="nav-item dropdown no-arrow mx-3 my-auto">
+              <div className="justify-content-center align-items-center row">
+                {/* <!-- Counter - Alerts --> */}
+                <i className="fas fa-money-bill-wave "></i>
+                <span className="ml-1 ">Rp. {isLogin.balance}</span>
               </div>
             </li>
           </>
         )}
-
-        <div className="topbar-divider d-none d-sm-block"></div>
 
         {/* <!-- Nav Item - User Information --> */}
         {isLogin ? (
@@ -219,26 +125,20 @@ export default function Topbar(props) {
               className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
               aria-labelledby="userDropdown"
             >
-              <a className="dropdown-item" href="#">
+              <a className="dropdown-item" href="/dashboard/profile">
                 <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                 Profile
               </a>
-              <a className="dropdown-item" href="#">
-                <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                Settings
+              <a className="dropdown-item" href="/dashboard">
+                <i className="fas fa-tachometer-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                Dashboard
               </a>
               <a className="dropdown-item" href="#">
                 <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                 Activity Log
               </a>
               <div className="dropdown-divider"></div>
-              <a
-                onClick={signOut}
-                className="dropdown-item"
-                href="#"
-                data-toggle="modal"
-                data-target="#logoutModal"
-              >
+              <a onClick={signOut} className="dropdown-item" href="#">
                 <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                 Logout
               </a>

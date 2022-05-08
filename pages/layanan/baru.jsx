@@ -17,13 +17,25 @@ import { getSession } from "next-auth/react";
 export const getServerSideProps = async (ctx) => {
   try {
     const { user } = await getSession(ctx);
+    const profile = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT}/user/profile`,
+      {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
     return {
       props: {
         token: user.token,
+        userData: profile.data.data,
       },
     };
   } catch (error) {
     console.log(error);
+    return {
+      props: {},
+    };
   }
 };
 
@@ -107,20 +119,53 @@ export default function Services(props) {
       .then((e) => {});
   };
   const changeCategory = (e) => {
+    Swal.fire({
+      title: "Mohon Bersabar 😇",
+      text: "Mengambil Data...",
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      showLoaderOnConfirm: true,
+      preConfirm: true,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
     axios
       .get(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/services/category?cat=${e.target.value}`
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/services/category?cat=${e.target.value}`,
+        {
+          params: {
+            cat: e.target.value,
+          },
+        }
       )
-      .then((res) => setservices(res.data.data))
+      .then((res) => {
+        Swal.close();
+        setservices(res.data.data);
+      })
       .then((e) => setService({}));
   };
   const changeService = (e) => {
     if (e.target.value == 0) return;
+    Swal.fire({
+      title: "Mohon Bersabar 😇",
+      text: "Mengambil Data...",
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      showLoaderOnConfirm: true,
+      preConfirm: true,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
     axios
-      .get(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/services?id=${e.target.value}`
-      )
+      .get(`${process.env.NEXT_PUBLIC_API_ENDPOINT2}/services`, {
+        params: {
+          id: e.target.value,
+        },
+      })
       .then((serv) => {
+        Swal.close();
         setService(serv.data.data);
       });
   };
@@ -259,16 +304,33 @@ export default function Services(props) {
                     </div>
                   </div>
                 </div>
-                <div className="form-group">
-                  <label htmlFor="hargaBayar">Harga Bayar</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="hargaBayar"
-                    placeholder="Rp.xxxxx"
-                    disabled
-                    value={`Rp. ${totalPrice || 0}`}
-                  />
+                <div className="row">
+                  <div className="col-sm-6 ">
+                    <div className="form-group">
+                      <label htmlFor="hargaBayar">Harga Bayar</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="hargaBayar"
+                        placeholder="Rp.xxxxx"
+                        disabled
+                        value={`Rp. ${totalPrice || 0}`}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-sm-6 ">
+                    <div className="form-group">
+                      <label htmlFor="saldoAnda">Saldo Anda</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="saldoAnda"
+                        placeholder="Rp.xxxxx"
+                        disabled
+                        value={`Rp. ${props.userData.balance || 0},-`}
+                      />
+                    </div>
+                  </div>
                 </div>
                 <div className="card-action mb-5">
                   <button type="sumbit" className="btn btn-dark ">
