@@ -1,6 +1,6 @@
+import { signOut } from "next-auth/react";
 export default function Topbar(props) {
   const isLogin = props.isLogin;
-  // console.log(isLogin);
   return (
     <nav className="navbar navbar-expand navbar-light bg-gray-100 topbar mb-4 static-top shadow-sm">
       {/* <!-- Sidebar Toggle (Topbar) --> */}
@@ -233,6 +233,7 @@ export default function Topbar(props) {
               </a>
               <div className="dropdown-divider"></div>
               <a
+                onClick={signOut}
                 className="dropdown-item"
                 href="#"
                 data-toggle="modal"

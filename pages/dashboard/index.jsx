@@ -3,39 +3,59 @@ import Image from "next/image";
 import Wrapper from "../../layouts/wrapper";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { getSession } from "next-auth/react";
+
+// export const getServerSideProps = async (ctx) => {
+//   try {
+//     const userData = await axios.get(
+//       "https://api.mimamch.online/api/v1/user/profile",
+//       {
+//         headers: {
+//           Authorization: `Bearer ${ctx.req.cookies.jwt}`,
+//         },
+//       }
+//     );
+
+//     return {
+//       props: {
+//         // category: category.data.data,
+//         token: ctx.req.cookies.jwt,
+//         userData: userData.data.data,
+//       },
+//     };
+//   } catch (error) {
+//     return {
+//       props: {
+//         // category: category.data.data,
+//         token: ctx.req.cookies.jwt,
+//         userData: { username: "guest" },
+//       },
+//     };
+//   }
+// };
 
 export const getServerSideProps = async (ctx) => {
   try {
-    const userData = await axios.get(
+    const { user } = await getSession(ctx);
+    const getUserProfile = await axios.get(
       "https://api.mimamch.online/api/v1/user/profile",
       {
         headers: {
-          Authorization: `Bearer ${ctx.req.cookies.jwt}`,
+          Authorization: `Bearer ${user.token}`,
         },
       }
     );
-
+    const userData = getUserProfile.data.data;
     return {
-      props: {
-        // category: category.data.data,
-        token: ctx.req.cookies.jwt,
-        userData: userData.data.data,
-      },
+      props: { userData, user },
     };
   } catch (error) {
-    return {
-      props: {
-        // category: category.data.data,
-        token: ctx.req.cookies.jwt,
-        userData: { username: "guest" },
-      },
-    };
+    console.log(error);
   }
 };
 
 export default function Home(props) {
-  const [userData, setUserData] = useState(props.userData);
-
+  const userData = props.userData;
   return (
     <>
       <Head>

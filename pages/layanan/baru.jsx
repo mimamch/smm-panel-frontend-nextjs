@@ -4,14 +4,27 @@ import Head from "next/head";
 import Wrapper from "../../layouts/wrapper";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { getSession } from "next-auth/react";
+// export const getServerSideProps = async (ctx) => {
+//   return {
+//     props: {
+//       // category: category.data.data,
+//       token: ctx.req.cookies.jwt,
+//     },
+//   };
+// };
 
 export const getServerSideProps = async (ctx) => {
-  return {
-    props: {
-      // category: category.data.data,
-      token: ctx.req.cookies.jwt,
-    },
-  };
+  try {
+    const { user } = await getSession(ctx);
+    return {
+      props: {
+        token: user.token,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export default function Services(props) {

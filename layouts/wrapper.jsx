@@ -1,19 +1,20 @@
-import Head from "next/head";
-import React, { useEffect } from "react";
-import Script from "next/script";
-import Link from "next/link";
-import useScript from "./useScript";
+import React, { useEffect, useState } from "react";
 import Js from "./js";
 import Sidebar from "./sidebar";
 import Topbar from "./topbar";
 import Footer from "./footer";
-// import $ from "startbootstrap-sb-admin-2/vendor/jquery/jquery.min";
-// import * as $ from "jquery";
-// import "startbootstrap-sb-admin-2/vendor/bootstrap/js/bootstrap.bundle.min.js";
-// import "startbootstrap-sb-admin-2/js/sb-admin-2.min";
+import { getSession } from "next-auth/react";
 
 export default function Wrapper(props) {
-  const isLogin = props.isLogin ?? true;
+  const [user, setUser] = useState(false);
+  const isLogin = user ?? props.isLogin;
+
+  useEffect(() => {
+    (async () => {
+      const session = await getSession();
+      if (session) setUser(session.user);
+    })();
+  }, []);
 
   return (
     <>

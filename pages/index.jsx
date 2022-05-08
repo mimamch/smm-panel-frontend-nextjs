@@ -19,7 +19,7 @@ export default function Home(props) {
       <Head>
         <title>SMM Nusantara</title>
       </Head>
-      <Wrapper hideSidebar={true} isLogin={props.isLogin}>
+      <Wrapper hideSidebar={true}>
         <section>
           <div className="container-fluid">
             <div className="row mt-7">
