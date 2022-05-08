@@ -68,9 +68,10 @@ export default function Services(props) {
       Authorization: `Bearer ${props.token}`,
     };
     Swal.fire({
-      title: "Loading!",
-      html: "Jangan tutup halaman ini!", // add html attribute if you want or remove
+      title: "Sedang Memproses...",
+      html: "Mohon Bersabar 😇<br/> Jangan Keluar Dari Halaman Ini! ⛔",
       allowOutsideClick: false,
+      allowEscapeKey: false,
       didOpen: () => {
         Swal.showLoading();
       },
