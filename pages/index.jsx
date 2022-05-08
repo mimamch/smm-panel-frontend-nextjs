@@ -17,7 +17,7 @@ export default function Home(props) {
   return (
     <>
       <Head>
-        <title>SMM Nusantara</title>
+        <title>SMM Panel Termurah SeIndonesia - NUSANTARA SMM</title>
       </Head>
       <Wrapper hideSidebar={true}>
         <section>
@@ -25,7 +25,7 @@ export default function Home(props) {
             <div className="row mt-7">
               <div className="col-lg-9 text-center align-items-center justify-content-center mx-auto">
                 <h2 className=" headingTitle text-gray-800 text-gradient">
-                  SMM NUSANTARA
+                  NUSANTARA SMM
                 </h2>
                 <ul className="list-unstyled heading-text">
                   <li>SMM Termurah Se-Indonesia 😍</li>
