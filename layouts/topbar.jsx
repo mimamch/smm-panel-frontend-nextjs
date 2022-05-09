@@ -25,7 +25,7 @@ export default function Topbar(props) {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto homenavbar-nav">
-            {!isLogin ? (
+            {!isLogin && (
               <>
                 <li className="nav-item">
                   <Link href="/login">
@@ -35,19 +35,9 @@ export default function Topbar(props) {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="/login">
+                  <Link href="/register">
                     <a className="nav-link">
                       <i className="fas fa-user-plus"></i> Daftar
-                    </a>
-                  </Link>
-                </li>
-              </>
-            ) : (
-              <>
-                <li className="nav-item ">
-                  <Link href="/dashboard">
-                    <a className="nav-link text-gray-900 ">
-                      <i className="fas fa-user"></i> {isLogin.username}
                     </a>
                   </Link>
                 </li>
@@ -81,6 +71,47 @@ export default function Topbar(props) {
                 </a>
               </Link>
             </li>
+            {isLogin && (
+              <>
+                <li className="nav-item dropdown no-arrow">
+                  <a
+                    className="nav-link dropdown-toggle text-gray-900"
+                    href="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    <i className="fas fa-user"></i> {isLogin.username}
+                  </a>
+                  <div
+                    className="dropdown-menu"
+                    aria-labelledby="navbarDropdown"
+                  >
+                    <span className="dropdown-item text-gray-600 disabled">
+                      <i className="fas fa-money-bill"></i> Rp.{" "}
+                      {isLogin.balance}
+                    </span>
+                    <Link href="/dashboard">
+                      <a className="dropdown-item">
+                        <i className="fas fa-tachometer-alt"></i> Dashboard
+                      </a>
+                    </Link>
+                    <Link href="/profile">
+                      <a className="dropdown-item">
+                        <i className="fas fa-user"></i> Profile
+                      </a>
+                    </Link>
+                    <Link href="/logout">
+                      <a className="dropdown-item">
+                        <i className="fas fa-door-open"></i> Log Out
+                      </a>
+                    </Link>
+                  </div>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </nav>
