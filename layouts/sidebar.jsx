@@ -238,9 +238,9 @@ export default function Sidebar(props) {
           </div>
         </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/layanan/daftar-layanan">
-          <i class="fas fa-list"></i>
+      <li className="nav-item">
+        <a className="nav-link" href="/layanan/daftar-layanan">
+          <i className="fas fa-list"></i>
           <span>Daftar Layanan</span>
         </a>
       </li>

@@ -56,7 +56,7 @@ export default function History({ history }) {
                       <td>
                         #12345{" "}
                         <a href="#" className="btn btn-sm btn-success">
-                          <i class="far fa-eye"></i>
+                          <i className="far fa-eye"></i>
                         </a>
                       </td>
                       <td>Masalah Deposit</td>
@@ -70,7 +70,7 @@ export default function History({ history }) {
                       <td>
                         #12234{" "}
                         <a href="#" className="btn btn-sm btn-success">
-                          <i class="far fa-eye"></i>
+                          <i className="far fa-eye"></i>
                         </a>
                       </td>
                       <td>Masalah Layanan</td>
