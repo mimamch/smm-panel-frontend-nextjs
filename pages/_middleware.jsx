@@ -19,7 +19,10 @@ export default async function middleware(req) {
       return NextResponse.redirect(req.nextUrl.origin + "/dashboard");
     return NextResponse.next();
   }
-  if (req.nextUrl.pathname == "/") {
+  if (
+    req.nextUrl.pathname == "/" ||
+    req.nextUrl.pathname == "/layanan/daftar-layanan"
+  ) {
     return NextResponse.next();
   }
   if (!session) return NextResponse.redirect(req.nextUrl.origin + "/login");

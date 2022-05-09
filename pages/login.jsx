@@ -33,7 +33,7 @@ export default function Login({ csrfToken }) {
           icon: "error",
         });
 
-      return router.push("/dashboard");
+      return router.reload();
     });
 
     return;

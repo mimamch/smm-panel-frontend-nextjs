@@ -168,7 +168,7 @@ export default function Sidebar(props) {
               <i className="fas fa-plus"></i> Buat Pesanan
             </a>
             <a className="collapse-item" href="/layanan/riwayat">
-              <i className="fas fa-history"></i> Riwayat Layanan
+              <i className="fas fa-history"></i> Riwayat Pesanan
             </a>
 
             <a className="collapse-item" href="/layanan/daftar-layanan">
@@ -177,7 +177,73 @@ export default function Sidebar(props) {
           </div>
         </div>
       </li>
+      <li className="nav-item">
+        <a
+          className="nav-link collapsed"
+          href="#"
+          data-toggle="collapse"
+          data-target="#Deposit"
+          aria-expanded="true"
+          aria-controls="collapseTwo"
+        >
+          <i className="fas fa-money-bill"></i>
+          <span>Deposit</span>
+        </a>
+        <div
+          id="Deposit"
+          className="collapse"
+          aria-labelledby="headingTwo"
+          data-parent="#accordionSidebar"
+        >
+          <div className="bg-white py-2 collapse-inner rounded">
+            <h6 className="collapse-header">Deposit:</h6>
 
+            <a href="/deposit/baru" className="collapse-item">
+              <i className="fas fa-plus"></i> Isi Saldo
+            </a>
+            <a className="collapse-item" href="/deposit/riwayat">
+              <i className="fas fa-history"></i> Riwayat Deposit
+            </a>
+          </div>
+        </div>
+      </li>
+      <li className="nav-item">
+        <a
+          className="nav-link collapsed"
+          href="#"
+          data-toggle="collapse"
+          data-target="#tiket"
+          aria-expanded="true"
+          aria-controls="collapseThree"
+          id="tiketparent"
+        >
+          <i className="fas fa-envelope"></i>
+          <span>Tiket</span>
+        </a>
+        <div
+          id="tiket"
+          className="collapse"
+          aria-labelledby="headingTwo"
+          data-parent="#accordionSidebar"
+        >
+          <div className="bg-white py-2 collapse-inner rounded">
+            <h6 className="collapse-header">Tiket:</h6>
+
+            <a href="/tiket/baru" className="collapse-item">
+              <i className="fas fa-plus"></i> Tiket Baru
+            </a>
+            <a className="collapse-item" href="/tiket/riwayat">
+              <i className="fas fa-history"></i> Riwayat Tiket
+            </a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/layanan/daftar-layanan">
+          <i class="fas fa-list"></i>
+          <span>Daftar Layanan</span>
+        </a>
+      </li>
       {/* <!-- Nav Item - Utilities Collapse Menu --> */}
 
       {/* <!-- Divider --> */}

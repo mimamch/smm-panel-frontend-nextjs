@@ -7,19 +7,8 @@ import Wrapper from "../../layouts/wrapper";
 
 export async function getServerSideProps(ctx) {
   try {
-    const { user } = await getSession(ctx);
-    const history = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_ENDPOINT}/user/history?api=2`,
-      {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
     return {
-      props: {
-        history: history.data.history,
-      },
+      props: {},
     };
   } catch (error) {
     console.log(error);
@@ -42,18 +31,18 @@ export default function History({ history }) {
   return (
     <>
       <Head>
-        <title>Riwayat Pesanan</title>
+        <title>Riwayat Deposit</title>
       </Head>
       <Wrapper>
         <div className="container-fluid">
           {/* <!-- Page Heading --> */}
           <div className="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 className="h3 mb-0 text-gray-800">Riwayat Pesanan</h1>
+            <h1 className="h3 mb-0 text-gray-800">Riwayat Deposit</h1>
           </div>
           <div className="card shadow mb-4">
             <div className="card-header py-3">
               <h6 className="m-0 font-weight-bold text-primary">
-                Riwayat Pesanan Anda
+                Riwayat Deposit Anda
               </h6>
             </div>
             <div className="card-body">
@@ -67,31 +56,35 @@ export default function History({ history }) {
                   <thead>
                     <tr>
                       <th>No.</th>
-                      <th>ID Order</th>
-                      <th>Layanan</th>
-                      <th>Kuantitas</th>
-                      <th>Target</th>
-                      <th>Biaya</th>
-                      <th>Saldo Awal</th>
-                      <th>Saldo Akhir</th>
+                      <th>ID Deposit</th>
+                      <th>Tujuan</th>
+                      <th>Nominal</th>
                       <th>Waktu</th>
+                      <th>Status</th>
                     </tr>
                   </thead>
 
                   <tbody>
-                    {history.map((e, i) => (
-                      <tr key={e._id}>
-                        <td>{i + 1}</td>
-                        <td>#{e.orderId}</td>
-                        <td>{e.serviceName}</td>
-                        <td>{e.quantity}</td>
-                        <td>{e.target || "-"}</td>
-                        <td>{e.amount}</td>
-                        <td>{e.balanceBefore}</td>
-                        <td>{e.balanceAfter}</td>
-                        <td>{e.createdAt}</td>
-                      </tr>
-                    ))}
+                    <tr>
+                      <td>1.</td>
+                      <td>#12345</td>
+                      <td>BCA(MANUAL)</td>
+                      <td>Rp. 100.000</td>
+                      <td>09-05-22</td>
+                      <td>
+                        <span className="btn btn-success">Success</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>2.</td>
+                      <td>#43211</td>
+                      <td>BRI(MANUAL)</td>
+                      <td>Rp. 150.000</td>
+                      <td>20-05-22</td>
+                      <td>
+                        <span className="btn btn-warning">Pending</span>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
