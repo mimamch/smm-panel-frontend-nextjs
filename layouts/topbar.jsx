@@ -25,20 +25,34 @@ export default function Topbar(props) {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto homenavbar-nav">
-            <li className="nav-item">
-              <Link href="/login">
-                <a className="nav-link">
-                  <i className="fas fa-door-open"></i> Masuk
-                </a>
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link href="/login">
-                <a className="nav-link">
-                  <i className="fas fa-user-plus"></i> Daftar
-                </a>
-              </Link>
-            </li>
+            {!isLogin ? (
+              <>
+                <li className="nav-item">
+                  <Link href="/login">
+                    <a className="nav-link">
+                      <i className="fas fa-door-open"></i> Masuk
+                    </a>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link href="/login">
+                    <a className="nav-link">
+                      <i className="fas fa-user-plus"></i> Daftar
+                    </a>
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="nav-item ">
+                  <Link href="/dashboard">
+                    <a className="nav-link text-gray-900 ">
+                      <i className="fas fa-user"></i> {isLogin.username}
+                    </a>
+                  </Link>
+                </li>
+              </>
+            )}
             <li className="nav-item">
               <Link href="/layanan/daftar-layanan">
                 <a className="nav-link">

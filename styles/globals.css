@@ -80,3 +80,7 @@ a {
 .navbar-brand.homenavtitle {
   font-size: 2em;
 }
+
+.nav-link.text-gray-900 {
+  font-weight: 600;
+}
