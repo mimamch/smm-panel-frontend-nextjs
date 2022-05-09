@@ -1,25 +1,35 @@
 import Head from "next/head";
 import Wrapper from "../layouts/wrapper";
-import jwtDecode from "jwt-decode";
 import Link from "next/link";
-export async function getServerSideProps(context) {
-  let isLogin = false;
-  if (context.req.cookies.jwt) {
-    isLogin = jwtDecode(context.req.cookies.jwt);
+import { getSession } from "next-auth/react";
+export const getServerSideProps = async (ctx) => {
+  try {
+    const props = await getSession(ctx);
+    if (!props)
+      return {
+        props: {},
+      };
+
+    return {
+      props: {
+        isLogin: props.user,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      props: {},
+    };
   }
-  return {
-    props: {
-      isLogin,
-    },
-  };
-}
+};
 export default function Home(props) {
+  const isLogin = props.isLogin;
   return (
     <>
       <Head>
         <title>SMM Panel Termurah Se-Indonesia - NUSANTARA SMM</title>
       </Head>
-      <Wrapper hideSidebar={true}>
+      <Wrapper hideSidebar={true} isHome>
         <section>
           <div className="container-fluid">
             <div className="row mt-7">
@@ -33,22 +43,37 @@ export default function Home(props) {
                   <li>Telah Dipercaya oleh ribuan orang 😎</li>
                 </ul>
                 <div className="row justify-content-center align-items-center">
-                  <Link href="/login">
-                    <a className="btn btn-dark btn-lg  btn-icon-split m-2 ">
-                      <span className="icon text-gray-600">
-                        <i className="fas fa-sign-in-alt text-gray-200"></i>
-                      </span>
-                      <span className="text">Masuk</span>
-                    </a>
-                  </Link>
-                  <Link href="/register">
-                    <a className="btn btn-primary  btn-icon-split btn-lg m-2">
-                      <span className="icon text-gray-600">
-                        <i className="fas fa-users text-gray-200"></i>
-                      </span>
-                      <span className="text">Daftar</span>
-                    </a>
-                  </Link>
+                  {!isLogin ? (
+                    <>
+                      <Link href="/login">
+                        <a className="btn btn-dark btn-lg  btn-icon-split m-2 ">
+                          <span className="icon text-gray-600">
+                            <i className="fas fa-sign-in-alt text-gray-200"></i>
+                          </span>
+                          <span className="text">Masuk</span>
+                        </a>
+                      </Link>
+                      <Link href="/register">
+                        <a className="btn btn-primary  btn-icon-split btn-lg m-2">
+                          <span className="icon text-gray-600">
+                            <i className="fas fa-users text-gray-200"></i>
+                          </span>
+                          <span className="text">Daftar</span>
+                        </a>
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                      <Link href="/dashboard">
+                        <a className="btn btn-primary  btn-icon-split btn-lg m-2">
+                          <span className="icon text-gray-600">
+                            <i className="fas fa-users text-gray-200"></i>
+                          </span>
+                          <span className="text">Dashboard</span>
+                        </a>
+                      </Link>
+                    </>
+                  )}
                 </div>
               </div>
             </div>

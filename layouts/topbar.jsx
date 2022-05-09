@@ -1,11 +1,82 @@
-import { signOut, useSession } from "next-auth/react";
+import { getSession, signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 import { useEffect } from "react";
+
 export default function Topbar(props) {
   const isLogin = props.isLogin;
+
+  if (props.isHome) {
+    return (
+      <nav className="navbar navbar-expand-lg navbar-light homenav">
+        {" "}
+        <a className="navbar-brand homenavtitle" href="/">
+          💕
+        </a>
+        <button
+          className="navbar-toggler "
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav mr-auto homenavbar-nav">
+            <li className="nav-item">
+              <Link href="/login">
+                <a className="nav-link">
+                  <i className="fas fa-door-open"></i> Masuk
+                </a>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link href="/login">
+                <a className="nav-link">
+                  <i className="fas fa-user-plus"></i> Daftar
+                </a>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link href="/layanan/daftar-layanan">
+                <a className="nav-link">
+                  <i className="fas fa-list"></i> Daftar Layanan
+                </a>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link href="/kontak">
+                <a className="nav-link">
+                  <i className="fas fa-phone-alt"></i> Kontak Kami
+                </a>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link href="/syarat-dan-ketentuan">
+                <a className="nav-link">
+                  <i className="fas fa-copy"></i> Syarat dan Ketentuan
+                </a>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link href="/faq">
+                <a className="nav-link">
+                  <i className="fas fa-question"></i> FAQ
+                </a>
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    );
+  }
 
   return (
     <nav className="navbar navbar-expand navbar-light bg-gray-100 topbar mb-4 static-top shadow-sm">
       {/* <!-- Sidebar Toggle (Topbar) --> */}
+
       <button
         id="sidebarToggleTop"
         className="btn btn-link d-md-none rounded-circle mr-3"

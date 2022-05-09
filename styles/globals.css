@@ -64,3 +64,19 @@ a {
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.navbar.navbar-expand-lg.navbar-light.homenav {
+  padding: 0px 10vw;
+  background-color: #ebebeb49;
+}
+
+.navbar-nav.homenavbar-nav {
+  flex: 1;
+  margin: auto !important;
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 0.7vw;
+}
+.navbar-brand.homenavtitle {
+  font-size: 2em;
+}

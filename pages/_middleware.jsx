@@ -21,7 +21,10 @@ export default async function middleware(req) {
   }
   if (
     req.nextUrl.pathname == "/" ||
-    req.nextUrl.pathname == "/layanan/daftar-layanan"
+    req.nextUrl.pathname == "/layanan/daftar-layanan" ||
+    req.nextUrl.pathname == "/faq" ||
+    req.nextUrl.pathname == "/syarat-dan-ketentuan" ||
+    req.nextUrl.pathname == "/kontak"
   ) {
     return NextResponse.next();
   }
