@@ -72,7 +72,7 @@ export default function History(props) {
 
                   <tbody>
                     {props.history.history.map((e) => (
-                      <tr>
+                      <tr key={e.orderId}>
                         <td>{e.orderId}</td>
                         <td>{e.serviceName}</td>
                         <td>{e.quantity}</td>
