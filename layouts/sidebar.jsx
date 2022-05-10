@@ -121,7 +121,7 @@ export default function Sidebar(props) {
         <div className="sidebar-brand-icon rotate-n-15">
           <i className="fas fa-heart-broken"></i>
         </div>
-        <div className="sidebar-brand-text mx-3">MIMAMCH</div>
+        <div className="sidebar-brand-text mx-3">Halo 👋</div>
       </a>
 
       {/* <!-- Divider --> */}
@@ -140,7 +140,7 @@ export default function Sidebar(props) {
       <hr className="sidebar-divider" />
 
       {/* <!-- Heading --> */}
-      <div className="sidebar-heading">LAYANAN</div>
+      <div className="sidebar-heading">MENU</div>
 
       {/* <!-- Nav Item - Pages Collapse Menu --> */}
       <li className="nav-item">
@@ -152,8 +152,8 @@ export default function Sidebar(props) {
           aria-expanded="true"
           aria-controls="collapseTwo"
         >
-          <i className="fas fa-align-left"></i>
-          <span>Layanan</span>
+          <i className="fas fa-file-invoice-dollar"></i>
+          <span>Pesanan</span>
         </a>
         <div
           id="collapseTwo"
@@ -162,7 +162,7 @@ export default function Sidebar(props) {
           data-parent="#accordionSidebar"
         >
           <div className="bg-white py-2 collapse-inner rounded">
-            <h6 className="collapse-header">Layanan:</h6>
+            <h6 className="collapse-header">Pesanan:</h6>
 
             <a href="/layanan/baru" className="collapse-item">
               <i className="fas fa-plus"></i> Buat Pesanan
