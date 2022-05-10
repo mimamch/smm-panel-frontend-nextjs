@@ -78,7 +78,7 @@ export default function Services(props) {
     });
     axios
       .post(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/order/new-order`,
+        `http://localhost:5000/api/v2/order/new-order`,
         {
           service: service.serviceId,
           quantity: quantity,
@@ -110,6 +110,7 @@ export default function Services(props) {
           title: "GAGAL",
           data: e.response.data,
         });
+
         return Swal.fire({
           title: "Upsss!",
           html: e.response.data.msg,
