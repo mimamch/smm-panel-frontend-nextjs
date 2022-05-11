@@ -103,11 +103,10 @@ export default function Topbar(props) {
                         <i className="fas fa-user"></i> Profile
                       </a>
                     </Link>
-                    <Link href="/logout">
-                      <a className="dropdown-item">
-                        <i className="fas fa-door-open"></i> Log Out
-                      </a>
-                    </Link>
+
+                    <a onClick={signOut} className="dropdown-item">
+                      <i className="fas fa-door-open"></i> Log Out
+                    </a>
                   </div>
                 </li>
               </>
