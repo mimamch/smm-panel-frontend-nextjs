@@ -1,17 +1,95 @@
+import axios from "axios";
+import { getSession } from "next-auth/react";
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import Wrapper from "../../layouts/wrapper";
 
-export default function DepositBaru() {
+export const getServerSideProps = async (ctx) => {
+  const session = await getSession(ctx);
+  try {
+    const bank = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/deposit/get-bank`,
+      {
+        headers: {
+          Authorization: `Bearer ${session.user.token}`,
+        },
+      }
+    );
+
+    return {
+      props: {
+        bank: bank.data.data,
+        token: session.user.token,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      props: {},
+    };
+  }
+};
+
+export default function DepositBaru(props) {
   const [tujuan, settujuan] = useState("");
   const [minimal, setminimal] = useState(0);
   const [jumlah, setjumlah] = useState(0);
   const [saldoDiterima, setsaldoDiterima] = useState(0);
-  function buatDeposit(e) {
+  const changeTujuan = (val) => {
+    settujuan(JSON.parse(val.target.value));
+  };
+
+  async function buatDeposit(e) {
     e.preventDefault();
     try {
+      try {
+        const send = await axios.post(
+          `http://localhost:5000/api/v2/deposit/new`,
+          {
+            bank: tujuan._id,
+            nominal: jumlah,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${props.token}`,
+            },
+          }
+        );
+        Swal.fire({
+          title: "Yeyyy 😍",
+          icon: "success",
+          html: `Pembuatan Tiket Deposit Berhasil ! <br/><b>ID Deposit Anda : ${send.data.msg._id}</b>
+          <br/> Silahkan melakukan transfer ${tujuan.bankName} ke ${tujuan.accountNumber} <br/>
+          Sejumlah : <b>${send.data.msg.nominal}</b><br/>
+          Lalu hubungi ADMIN <a href="https://wa.me/6285838707828">DI SINI</a>`,
+        });
+      } catch (error) {
+        console.log(error);
+        Swal.fire({
+          title: "Upsss 😓",
+          icon: "error",
+          html: `${error.response.data.msg || error.message}`,
+        });
+      }
     } catch (error) {}
   }
+  const getMinimal = () => {
+    if (!tujuan) return;
+    setminimal(tujuan.min);
+  };
+  const getSaldoDiterima = () => {
+    if (!tujuan || !jumlah) return;
+    let promo;
+    promo = (jumlah * tujuan.promo) / 100;
+    setsaldoDiterima(jumlah - promo);
+    console.log(saldoDiterima);
+  };
+  useEffect(() => {
+    getMinimal();
+    getSaldoDiterima();
+  }, [tujuan, jumlah]);
+
   return (
     <Wrapper>
       <Head>
@@ -27,8 +105,22 @@ export default function DepositBaru() {
           <div className="form-group row">
             <div className="col-md-6">
               <label htmlFor="tujuan">Pilih Rekening</label>
-              <select id="tujuan" className="form-control">
-                <option>BCA (MANUAL)</option>
+              <select
+                onChange={changeTujuan}
+                id="tujuan"
+                className="form-control"
+                defaultValue=""
+              >
+                <option value="" disabled>
+                  Pilih Tujuan
+                </option>
+                {props.bank.map((e) => (
+                  <option key={e._id} value={JSON.stringify(e)}>
+                    {e.bankName +
+                      " " +
+                      `${e.isAuto ? "(OTOMATIS)" : "(MANUAL)"}`}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -39,7 +131,7 @@ export default function DepositBaru() {
                 type="text"
                 id="minimal"
                 className="form-control"
-                value={"Rp. 10.000"}
+                value={minimal || "Pilih Tujuan Terlebih Dahulu"}
                 disabled
               />
             </div>
@@ -49,10 +141,11 @@ export default function DepositBaru() {
               <div>
                 <label htmlFor="nominal">Jumlah Deposit</label>
                 <input
-                  type="text"
+                  type="number"
                   id="nominal"
                   className="form-control"
                   placeholder="10000"
+                  onChange={(e) => setjumlah(e.target.value)}
                 />
               </div>
             </div>
@@ -63,7 +156,7 @@ export default function DepositBaru() {
                   type="text"
                   id="saldoDidapat"
                   className="form-control"
-                  value={"Rp. 10.000"}
+                  value={saldoDiterima}
                   disabled
                 />
               </div>
