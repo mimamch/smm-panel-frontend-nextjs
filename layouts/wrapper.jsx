@@ -57,7 +57,7 @@ export default function Wrapper(props) {
         </div>
         {/* <!-- End of Content Wrapper --> */}
       </div>
-      <Js />
+      <Js isHome={props.isHome} />
     </>
   );
 }
