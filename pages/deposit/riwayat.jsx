@@ -7,8 +7,20 @@ import Wrapper from "../../layouts/wrapper";
 
 export async function getServerSideProps(ctx) {
   try {
+    const session = await getSession(ctx);
+    const history = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/deposit/history`,
+      {
+        headers: {
+          Authorization: `Bearer ${session.user.token}`,
+        },
+      }
+    );
     return {
-      props: {},
+      props: {
+        user: session.user,
+        history: history.data.msg,
+      },
     };
   } catch (error) {
     console.log(error);
@@ -57,7 +69,6 @@ export default function History({ history }) {
                     <tr>
                       <th>No.</th>
                       <th>ID Deposit</th>
-                      <th>Tujuan</th>
                       <th>Nominal</th>
                       <th>Waktu</th>
                       <th>Status</th>
@@ -65,26 +76,27 @@ export default function History({ history }) {
                   </thead>
 
                   <tbody>
-                    <tr>
-                      <td>1.</td>
-                      <td>#12345</td>
-                      <td>BCA(MANUAL)</td>
-                      <td>Rp. 100.000</td>
-                      <td>09-05-22</td>
-                      <td>
-                        <span className="btn btn-success">Success</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>2.</td>
-                      <td>#43211</td>
-                      <td>BRI(MANUAL)</td>
-                      <td>Rp. 150.000</td>
-                      <td>20-05-22</td>
-                      <td>
-                        <span className="btn btn-warning">Pending</span>
-                      </td>
-                    </tr>
+                    {history.map((e, i) => (
+                      <tr>
+                        <td>{i + 1}</td>
+                        <td>{e._id}</td>
+                        <td>Rp. {e.nominal}</td>
+                        <td>{e.createdAt}</td>
+                        <td>
+                          <span
+                            className={`btn btn-${
+                              e.status == "success"
+                                ? "success"
+                                : e.status == "pending"
+                                ? "warning"
+                                : "danger"
+                            }`}
+                          >
+                            {e.status.toUpperCase()}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>

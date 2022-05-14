@@ -1,6 +1,7 @@
 import axios from "axios";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import Wrapper from "../../layouts/wrapper";
@@ -32,6 +33,7 @@ export const getServerSideProps = async (ctx) => {
 };
 
 export default function DepositBaru(props) {
+  const router = useRouter();
   const [tujuan, settujuan] = useState("");
   const [minimal, setminimal] = useState(0);
   const [jumlah, setjumlah] = useState(0);
@@ -56,14 +58,15 @@ export default function DepositBaru(props) {
             },
           }
         );
-        Swal.fire({
-          title: "Yeyyy 😍",
-          icon: "success",
-          html: `Pembuatan Tiket Deposit Berhasil ! <br/><b>ID Deposit Anda : ${send.data.msg._id}</b>
-          <br/> Silahkan melakukan transfer ${tujuan.bankName} ke ${tujuan.accountNumber} <br/>
-          Sejumlah : <b>${send.data.msg.nominal}</b><br/>
-          Lalu hubungi ADMIN <a href="https://wa.me/6285838707828">DI SINI</a>`,
-        });
+        // Swal.fire({
+        //   title: "Yeyyy 😍",
+        //   icon: "success",
+        //   html: `Pembuatan Tiket Deposit Berhasil ! <br/><b>ID Deposit Anda : ${send.data.msg._id}</b>
+        //   <br/> Silahkan melakukan transfer ${tujuan.bankName} ke ${tujuan.accountNumber} <br/>
+        //   Sejumlah : <b>${send.data.msg.nominal}</b><br/>
+        //   Lalu hubungi ADMIN <a href="https://wa.me/6285838707828">DI SINI</a>`,
+        // });
+        router.push("/deposit/payment/" + send.data.msg._id);
       } catch (error) {
         console.log(error);
         Swal.fire({
@@ -144,8 +147,9 @@ export default function DepositBaru(props) {
                   type="number"
                   id="nominal"
                   className="form-control"
-                  placeholder="10000"
+                  placeholder="0"
                   onChange={(e) => setjumlah(e.target.value)}
+                  required
                 />
               </div>
             </div>
