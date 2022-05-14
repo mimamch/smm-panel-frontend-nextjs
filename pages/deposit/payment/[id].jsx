@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getSession } from "next-auth/react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Loading from "../../../layouts/components/loading";
@@ -202,9 +203,9 @@ export default function Payment(props) {
             {/* <!-- begin invoice-company --> */}
             <div className="invoice-company text-inverse f-w-600">
               <span className="pull-right hidden-print"></span>
-              <a className="text-dark" href="/">
-                ❤ NUSANTARA SMM
-              </a>
+              <Link href="/">
+                <a className="text-dark">❤ NUSANTARA SMM</a>
+              </Link>
             </div>
             {/* <!-- end invoice-company --> */}
             {/* <!-- begin invoice-header --> */}
@@ -269,9 +270,9 @@ export default function Payment(props) {
                     REFRESH
                   </button>
                 ) : (
-                  <a href="/dashboard" className="btn btn-dark">
-                    Dashboard
-                  </a>
+                  <Link href="/dashboard">
+                    <a className="btn btn-dark">Dashboard</a>
+                  </Link>
                 )}
               </div>
             </div>

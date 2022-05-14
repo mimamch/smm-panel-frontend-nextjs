@@ -77,7 +77,7 @@ export default function History({ history }) {
 
                   <tbody>
                     {history.map((e, i) => (
-                      <tr>
+                      <tr key={e._id}>
                         <td>{i + 1}</td>
                         <td>{e._id}</td>
                         <td>Rp. {e.nominal}</td>
