@@ -47,7 +47,7 @@ export default function DepositBaru(props) {
     try {
       try {
         const send = await axios.post(
-          `http://localhost:5000/api/v2/deposit/new`,
+          `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/deposit/new`,
           {
             bank: tujuan._id,
             nominal: jumlah,
