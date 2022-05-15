@@ -91,7 +91,7 @@ export default function DepositBaru(props) {
     if (!tujuan || !jumlah) return;
     let promo;
     promo = (jumlah * tujuan.promo) / 100;
-    setsaldoDiterima(jumlah - promo);
+    setsaldoDiterima(jumlah + promo);
   };
   useEffect(() => {
     getMinimal();
