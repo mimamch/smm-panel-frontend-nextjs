@@ -176,7 +176,7 @@ export default function Sk() {
                     <ul>
                       <li>
                         Kami hanya untuk sarana promosi. Hanya untuk membatu
-                        meningkatkan "penampilan" Akun sosial media anda.
+                        meningkatkan penampilan Akun sosial media anda.
                       </li>
                       <li>
                         Kami tidak dapat memastikan pengikut baru anda akan
