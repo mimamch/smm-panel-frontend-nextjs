@@ -7,7 +7,7 @@ import Wrapper from "../../layouts/wrapper";
 export const getServerSideProps = async () => {
   try {
     const deposit = await axios.get(
-      `http://localhost:5000/api/v2/user/get-deposit`
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/user/get-deposit`
     );
     // console.log(user);
     return {
@@ -28,7 +28,7 @@ export default function User(props) {
   const accept = async (id) => {
     try {
       const res = await axios.post(
-        `http://localhost:5000/api/v2/user/action-deposit`,
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/user/action-deposit`,
         {
           action: "accept",
           id: id,
@@ -41,10 +41,13 @@ export default function User(props) {
   };
   const decline = async (id) => {
     try {
-      await axios.post(`http://localhost:5000/api/v2/user/action-deposit`, {
-        action: "decline",
-        id: id,
-      });
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/user/action-deposit`,
+        {
+          action: "decline",
+          id: id,
+        }
+      );
       router.reload();
     } catch (error) {
       console.log(error);

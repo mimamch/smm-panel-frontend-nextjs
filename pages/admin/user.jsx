@@ -4,7 +4,9 @@ import Wrapper from "../../layouts/wrapper";
 
 export const getServerSideProps = async () => {
   try {
-    const user = await axios.get(`http://localhost:5000/api/v2/user/get-user`);
+    const user = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/user/get-user`
+    );
     // console.log(user);
     return {
       props: {
