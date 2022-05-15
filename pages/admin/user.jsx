@@ -1,0 +1,74 @@
+import axios from "axios";
+import React from "react";
+import Wrapper from "../../layouts/wrapper";
+
+export const getServerSideProps = async () => {
+  try {
+    const user = await axios.get(`http://localhost:5000/api/v2/user/get-user`);
+    // console.log(user);
+    return {
+      props: {
+        user: user.data.data,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      props: {},
+    };
+  }
+};
+
+export default function User(props) {
+  return (
+    <Wrapper>
+      <div className="container-fluid">
+        {/* <!-- Page Heading --> */}
+        <div className="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 className="h3 mb-0 text-gray-800">Daftar User</h1>
+        </div>
+        <div className="card shadow mb-4">
+          <div className="card-header py-3">
+            <h6 className="m-0 font-weight-bold text-primary">User</h6>
+          </div>
+          <div className="card-body">
+            <div className="table-responsive">
+              <table
+                className="table table-bordered"
+                id="dataTable"
+                width="100%"
+                cellSpacing="0"
+              >
+                <thead>
+                  <tr>
+                    <th>Username</th>
+                    <th>Phone Number</th>
+                    <th>Email</th>
+                    <th>Balance</th>
+                    <th>Total Deposit</th>
+                    <th>Balance Used</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {props.user.map((e) => (
+                    <tr key={e._id}>
+                      <td>{e.username}</td>
+                      <td>{e.phoneNumber}</td>
+                      <td>{e.email}</td>
+                      <td>{e.balance}</td>
+                      <td>{e.totalDeposit}</td>
+                      <td>{e.balanceUsed}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        {/* <!-- Content Row --> */}
+      </div>
+    </Wrapper>
+  );
+}

@@ -249,8 +249,40 @@ export default function Sidebar(props) {
       {/* <!-- Divider --> */}
 
       {/* <!-- Divider --> */}
-      <hr className="sidebar-divider d-none d-md-block" />
+      {/* <hr className="sidebar-divider d-none d-md-block" /> */}
+      {isLogin.role == "admin" && (
+        <li className="nav-item">
+          <a
+            className="nav-link collapsed"
+            href="#"
+            data-toggle="collapse"
+            data-target="#admin"
+            aria-expanded="true"
+            aria-controls="collapsefour"
+          >
+            <i className="fas fa-lock"></i>
+            <span>Admin</span>
+          </a>
+          <div
+            id="admin"
+            className="collapse"
+            aria-labelledby="headingfour"
+            data-parent="#accordionSidebar"
+          >
+            <div className="bg-white py-2 collapse-inner rounded">
+              <h6 className="collapse-header">Admin Menu:</h6>
 
+              <a href="/admin/user" className="collapse-item">
+                <i className="fas fa-plus"></i> Daftar User
+              </a>
+              <a className="collapse-item" href="/admin/deposit">
+                <i className="fas fa-history"></i> Daftar Deposit
+              </a>
+            </div>
+          </div>
+        </li>
+      )}
+      <hr className="sidebar-divider d-none d-md-block" />
       {/* <!-- Sidebar Toggler (Sidebar) --> */}
       <div className="text-center d-none d-md-inline">
         <button className="rounded-circle border-0" id="sidebarToggle"></button>
