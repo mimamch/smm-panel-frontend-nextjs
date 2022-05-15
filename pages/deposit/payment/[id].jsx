@@ -1,10 +1,10 @@
 import axios from "axios";
 import { getSession } from "next-auth/react";
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Loading from "../../../layouts/components/loading";
-import Js from "../../../layouts/js";
 
 export const getServerSideProps = async (ctx) => {
   try {
@@ -47,6 +47,26 @@ export default function Payment(props) {
   const confirm = () => {
     router.reload();
   };
+  const cancel = async () => {
+    try {
+      console.log(id);
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/deposit/cancel-deposit`,
+        // `http://localhost:5000/api/v2/deposit/cancel-deposit`,
+        {
+          id: id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${props.user.token}`,
+          },
+        }
+      );
+      router.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     getInfo();
@@ -61,6 +81,9 @@ export default function Payment(props) {
 
   return (
     <>
+      <Head>
+        <title>Konfirmasi Pembayaran</title>
+      </Head>
       <style jsx>
         {`
           body {
@@ -266,9 +289,17 @@ export default function Payment(props) {
                   </span>
                 )}
                 {info.status == "pending" ? (
-                  <button onClick={confirm} className="btn btn-dark">
-                    REFRESH
-                  </button>
+                  <>
+                    <button onClick={confirm} className="btn btn-dark btn-lg">
+                      REFRESH
+                    </button>
+                    <button
+                      onClick={cancel}
+                      className="btn btn-danger mt-2 btn-sm"
+                    >
+                      Batalkan Deposit
+                    </button>
+                  </>
                 ) : (
                   <Link href="/dashboard">
                     <a className="btn btn-dark">Dashboard</a>

@@ -4,6 +4,7 @@ import Head from "next/head";
 import Script from "next/script";
 import { useEffect } from "react";
 import Wrapper from "../../layouts/wrapper";
+import Link from "next/link";
 
 export async function getServerSideProps(ctx) {
   try {
@@ -79,7 +80,11 @@ export default function History({ history }) {
                     {history.map((e, i) => (
                       <tr key={e._id}>
                         <td>{i + 1}</td>
-                        <td>{e._id}</td>
+                        <td>
+                          <Link href={`/deposit/payment/${e._id}`}>
+                            {e._id}
+                          </Link>
+                        </td>
                         <td>Rp. {e.nominal}</td>
                         <td>{e.createdAt}</td>
                         <td>

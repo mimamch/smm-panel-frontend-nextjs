@@ -78,6 +78,7 @@ export default function User(props) {
               >
                 <thead>
                   <tr>
+                    <th>ID Deposit</th>
                     <th>Username</th>
                     <th>Nominal</th>
                     <th>Tujuan</th>
@@ -91,6 +92,7 @@ export default function User(props) {
                 <tbody>
                   {props.deposit.map((e) => (
                     <tr key={e._id}>
+                      <td>{e._id}</td>
                       <td>{e.user.username}</td>
                       <td>{e.nominal}</td>
                       <td>{e.bank.bankName}</td>
