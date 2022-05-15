@@ -44,6 +44,12 @@ export default function DepositBaru(props) {
 
   async function buatDeposit(e) {
     e.preventDefault();
+    if (jumlah < minimal)
+      return Swal.fire({
+        title: "Upsss 😓",
+        icon: "error",
+        html: `Jumlah Deposit Tidak Boleh Kurang Dari Rp. ${minimal}`,
+      });
     try {
       try {
         const send = await axios.post(
