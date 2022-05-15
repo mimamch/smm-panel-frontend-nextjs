@@ -1,4 +1,5 @@
 import axios from "axios";
+import Head from "next/head";
 import React from "react";
 import Wrapper from "../../layouts/wrapper";
 
@@ -24,6 +25,9 @@ export const getServerSideProps = async () => {
 export default function User(props) {
   return (
     <Wrapper>
+      <Head>
+        <title>Users - Admin</title>
+      </Head>
       <div className="container-fluid">
         {/* <!-- Page Heading --> */}
         <div className="d-sm-flex align-items-center justify-content-between mb-4">

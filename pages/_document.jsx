@@ -9,10 +9,12 @@ export default function Document() {
         {/* <!-- Primary Meta Tags --> */}
 
         <meta
+          key="title"
           name="title"
           content="SMM Panel Termurah Seindonesia - NUSANTARA SMM"
         />
         <meta
+          key="description"
           name="description"
           content="Panel SMM Termurah, Tercepat, Terpercaya di Indonesia. Memberikan pelayanan terbaik untuk pengguna Sosial Media. Dengan Bonus Deposit Hingga 10% Untuk Pengguna Baru, Daftar Sekarang!"
         />

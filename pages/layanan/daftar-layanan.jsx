@@ -55,7 +55,18 @@ export default function DaftarLayanan({ category }) {
   return (
     <>
       <Head>
-        <title>Daftar Layanan</title>
+        <title>Daftar Layanan - Nusantara SMM</title>
+
+        <meta
+          name="title"
+          content="Daftar Layanan - Nusantara SMM"
+          key="title"
+        />
+        <meta
+          key="description"
+          name="description"
+          content="Cari dan temukan layanan yang sesuai kebutuhan Anda, dengan harga termurah dari semua layanan SMM lainnya."
+        />
       </Head>
       <Wrapper>
         <div className="container-fluid">
