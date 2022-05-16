@@ -5,6 +5,7 @@ import Wrapper from "../../layouts/wrapper";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { getSession } from "next-auth/react";
+import IDRConverter from "../../layouts/components/IDRConverter";
 // export const getServerSideProps = async (ctx) => {
 //   return {
 //     props: {
@@ -54,7 +55,9 @@ export default function Services(props) {
     // CONFIRM BUTTON
     const confirm = await Swal.fire({
       title: "Apakah Anda Yakin?",
-      html: `<b>Layanan</b> : ${service.name}<br/><b>Harga</b> : Rp. ${totalPrice},-<br/><b>Jumlah : </b> ${quantity}<br/><b>Target</b> : ${target}`,
+      html: `<b>Layanan</b> : ${service.name}<br/><b>Harga</b> : ${IDRConverter(
+        totalPrice
+      )}<br/><b>Jumlah : </b> ${quantity}<br/><b>Target</b> : ${target}`,
       icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -99,7 +102,19 @@ export default function Services(props) {
         Swal.close();
         return Swal.fire({
           title: "BERHASIL!",
-          html: `<b>Order ID :</b> ${res.data.history.orderId}<br/><b>Layanan :</b> ${res.data.history.serviceName}<br/><b>Jumlah :</b> ${res.data.history.quantity}<br/><b>Harga :</b> ${res.data.history.amount}<br/><b>Saldo Awal :</b> Rp. ${res.data.history.balanceBefore}<br/><b>Saldo Akhir :</b> Rp. ${res.data.history.balanceAfter}`,
+          html: `<b>Order ID :</b> ${
+            res.data.history.orderId
+          }<br/><b>Layanan :</b> ${
+            res.data.history.serviceName
+          }<br/><b>Jumlah :</b> ${
+            res.data.history.quantity
+          }<br/><b>Harga :</b> ${IDRConverter(
+            res.data.history.amount
+          )}<br/><b>Saldo Awal :</b> ${IDRConverter(
+            res.data.history.balanceBefore
+          )}<br/><b>Saldo Akhir :</b> ${IDRConverter(
+            res.data.history.balanceAfter
+          )}`,
           icon: "success",
           confirmButtonText: "OK",
         });
@@ -110,7 +125,6 @@ export default function Services(props) {
           title: "GAGAL",
           data: e.response.data,
         });
-        console.log(e);
         return Swal.fire({
           title: "Upsss!",
           html: e.response.data.msg,
@@ -249,7 +263,7 @@ export default function Services(props) {
                     id="disableinput"
                     placeholder="Rp.xxxxxx"
                     disabled
-                    value={`Rp. ${service.rate || 0}`}
+                    value={IDRConverter(service.rate)}
                   />
                 </div>
                 <div className="form-group">
@@ -316,7 +330,7 @@ export default function Services(props) {
                         id="hargaBayar"
                         placeholder="Rp.xxxxx"
                         disabled
-                        value={`Rp. ${totalPrice || 0}`}
+                        value={IDRConverter(totalPrice)}
                       />
                     </div>
                   </div>
@@ -329,7 +343,7 @@ export default function Services(props) {
                         id="saldoAnda"
                         placeholder="Rp.xxxxx"
                         disabled
-                        value={`Rp. ${props.userData.balance || 0},-`}
+                        value={IDRConverter(props.userData.balance)}
                       />
                     </div>
                   </div>

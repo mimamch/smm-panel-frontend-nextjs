@@ -1,6 +1,7 @@
 import { getSession, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect } from "react";
+import IDRConverter from "./components/IDRConverter";
 
 export default function Topbar(props) {
   const isLogin = props.isLogin;
@@ -90,8 +91,8 @@ export default function Topbar(props) {
                     aria-labelledby="navbarDropdown"
                   >
                     <span className="dropdown-item text-gray-600 disabled">
-                      <i className="fas fa-money-bill"></i> Rp.{" "}
-                      {isLogin.balance}
+                      <i className="fas fa-money-bill"></i>{" "}
+                      {IDRConverter(isLogin.balance)}
                     </span>
                     <Link href="/dashboard">
                       <a className="dropdown-item">
@@ -145,7 +146,7 @@ export default function Topbar(props) {
               <div className="justify-content-center align-items-center row">
                 {/* <!-- Counter - Alerts --> */}
                 <i className="fas fa-money-bill-wave "></i>
-                <span className="ml-1 ">Rp. {isLogin.balance}</span>
+                <span className="ml-1 ">{IDRConverter(isLogin.balance)}</span>
               </div>
             </li>
           </>

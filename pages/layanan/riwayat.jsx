@@ -3,6 +3,7 @@ import { getSession } from "next-auth/react";
 import Head from "next/head";
 import Script from "next/script";
 import { useEffect } from "react";
+import IDRConverter from "../../layouts/components/IDRConverter";
 import Wrapper from "../../layouts/wrapper";
 
 export async function getServerSideProps(ctx) {
@@ -76,10 +77,10 @@ export default function History(props) {
                         <td>{e.orderId}</td>
                         <td>{e.serviceName}</td>
                         <td>{e.quantity}</td>
-                        <td>{e.amount}</td>
+                        <td>{IDRConverter(e.amount)}</td>
                         <td style={{ maxWidth: "15vw" }}>{e.target || "-"}</td>
-                        <td>{e.balanceBefore}</td>
-                        <td>{e.balanceAfter}</td>
+                        <td>{IDRConverter(e.balanceBefore)}</td>
+                        <td>{IDRConverter(e.balanceAfter)}</td>
                         <td>{e.createdAt}</td>
                         <td>
                           {e.orderStatus == "success" ? (

@@ -3,7 +3,9 @@ import Head from "next/head";
 import Script from "next/script";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import IDRConverter from "../../layouts/components/IDRConverter";
 import Wrapper from "../../layouts/wrapper";
+import parse from "html-react-parser";
 
 export const getServerSideProps = async () => {
   try {
@@ -122,10 +124,10 @@ export default function DaftarLayanan({ category }) {
                       <tr key={e.serviceId}>
                         <td>{e.serviceId}</td>
                         <td>{e.name}</td>
-                        <td>{e.rate}</td>
+                        <td>{IDRConverter(e.rate)}</td>
                         <td>{e.min}</td>
                         <td>{e.max}</td>
-                        <td>{e.desc}</td>
+                        <td>{parse(e.desc)}</td>
                       </tr>
                     ))}
                   </tbody>

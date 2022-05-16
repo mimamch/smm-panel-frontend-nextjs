@@ -1,6 +1,7 @@
 import axios from "axios";
 import Head from "next/head";
 import React from "react";
+import IDRConverter from "../../layouts/components/IDRConverter";
 import Wrapper from "../../layouts/wrapper";
 
 export const getServerSideProps = async () => {
@@ -62,9 +63,9 @@ export default function User(props) {
                       <td>{e.username}</td>
                       <td>{e.phoneNumber}</td>
                       <td>{e.email}</td>
-                      <td>{e.balance}</td>
-                      <td>{e.totalDeposit}</td>
-                      <td>{e.balanceUsed}</td>
+                      <td>{IDRConverter(e.balance)}</td>
+                      <td>{IDRConverter(e.totalDeposit)}</td>
+                      <td>{IDRConverter(e.balanceUsed)}</td>
                     </tr>
                   ))}
                 </tbody>

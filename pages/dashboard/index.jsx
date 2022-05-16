@@ -4,6 +4,7 @@ import Wrapper from "../../layouts/wrapper";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { getSession } from "next-auth/react";
+import IDRConverter from "../../layouts/components/IDRConverter";
 
 // export const getServerSideProps = async (ctx) => {
 //   try {
@@ -80,7 +81,7 @@ export default function Home(props) {
                         SALDO
                       </div>
                       <div className="h5 mb-0 font-weight-bold text-gray-800">
-                        Rp. {userData.balance}
+                        {IDRConverter(userData.balance)}
                       </div>
                     </div>
                     <div className="col-auto">
@@ -101,7 +102,7 @@ export default function Home(props) {
                         Saldo Digunakan
                       </div>
                       <div className="h5 mb-0 font-weight-bold text-gray-800">
-                        Rp. {userData.balanceUsed}
+                        {IDRConverter(userData.balanceUsed)}
                       </div>
                     </div>
                     <div className="col-auto">
@@ -120,7 +121,7 @@ export default function Home(props) {
                         Total Deposit
                       </div>
                       <div className="h5 mb-0 font-weight-bold text-gray-800">
-                        Rp. {userData.totalDeposit}
+                        {IDRConverter(userData.totalDeposit)}
                       </div>
                     </div>
                     <div className="col-auto">

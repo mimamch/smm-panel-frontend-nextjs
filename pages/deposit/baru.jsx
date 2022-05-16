@@ -4,6 +4,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import IDRConverter from "../../layouts/components/IDRConverter";
 import Wrapper from "../../layouts/wrapper";
 
 export const getServerSideProps = async (ctx) => {
@@ -139,7 +140,7 @@ export default function DepositBaru(props) {
                 type="text"
                 id="minimal"
                 className="form-control"
-                value={minimal || "Pilih Tujuan Terlebih Dahulu"}
+                value={IDRConverter(minimal) || "Pilih Tujuan Terlebih Dahulu"}
                 disabled
               />
             </div>
@@ -153,7 +154,9 @@ export default function DepositBaru(props) {
                   id="nominal"
                   className="form-control"
                   placeholder="0"
-                  onChange={(e) => setjumlah(e.target.value)}
+                  onChange={(e) => {
+                    setjumlah(parseInt(e.target.value));
+                  }}
                   required
                 />
               </div>
@@ -165,7 +168,7 @@ export default function DepositBaru(props) {
                   type="text"
                   id="saldoDidapat"
                   className="form-control"
-                  value={saldoDiterima}
+                  value={IDRConverter(saldoDiterima)}
                   disabled
                 />
               </div>
