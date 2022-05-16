@@ -143,71 +143,75 @@ export default function Sidebar(props) {
       <div className="sidebar-heading">MENU</div>
 
       {/* <!-- Nav Item - Pages Collapse Menu --> */}
-      <li className="nav-item">
-        <a
-          className="nav-link collapsed"
-          href="#"
-          data-toggle="collapse"
-          data-target="#collapseTwo"
-          aria-expanded="true"
-          aria-controls="collapseTwo"
-        >
-          <i className="fas fa-file-invoice-dollar"></i>
-          <span>Pesanan</span>
-        </a>
-        <div
-          id="collapseTwo"
-          className="collapse"
-          aria-labelledby="headingTwo"
-          data-parent="#accordionSidebar"
-        >
-          <div className="bg-white py-2 collapse-inner rounded">
-            <h6 className="collapse-header">Pesanan:</h6>
+      {isLogin && (
+        <>
+          <li className="nav-item">
+            <a
+              className="nav-link collapsed"
+              href="#"
+              data-toggle="collapse"
+              data-target="#collapseTwo"
+              aria-expanded="true"
+              aria-controls="collapseTwo"
+            >
+              <i className="fas fa-file-invoice-dollar"></i>
+              <span>Pesanan</span>
+            </a>
+            <div
+              id="collapseTwo"
+              className="collapse"
+              aria-labelledby="headingTwo"
+              data-parent="#accordionSidebar"
+            >
+              <div className="bg-white py-2 collapse-inner rounded">
+                <h6 className="collapse-header">Pesanan:</h6>
 
-            <a href="/layanan/baru" className="collapse-item">
-              <i className="fas fa-plus"></i> Buat Pesanan
-            </a>
-            <a className="collapse-item" href="/layanan/riwayat">
-              <i className="fas fa-history"></i> Riwayat Pesanan
-            </a>
+                <a href="/layanan/baru" className="collapse-item">
+                  <i className="fas fa-plus"></i> Buat Pesanan
+                </a>
+                <a className="collapse-item" href="/layanan/riwayat">
+                  <i className="fas fa-history"></i> Riwayat Pesanan
+                </a>
 
-            <a className="collapse-item" href="/layanan/daftar-layanan">
-              <i className="fas fa-list"></i> Daftar Layanan
+                <a className="collapse-item" href="/layanan/daftar-layanan">
+                  <i className="fas fa-list"></i> Daftar Layanan
+                </a>
+              </div>
+            </div>
+          </li>
+          <li className="nav-item">
+            <a
+              className="nav-link collapsed"
+              href="#"
+              data-toggle="collapse"
+              data-target="#Deposit"
+              aria-expanded="true"
+              aria-controls="collapseTwo"
+            >
+              <i className="fas fa-money-bill"></i>
+              <span>Deposit</span>
             </a>
-          </div>
-        </div>
-      </li>
-      <li className="nav-item">
-        <a
-          className="nav-link collapsed"
-          href="#"
-          data-toggle="collapse"
-          data-target="#Deposit"
-          aria-expanded="true"
-          aria-controls="collapseTwo"
-        >
-          <i className="fas fa-money-bill"></i>
-          <span>Deposit</span>
-        </a>
-        <div
-          id="Deposit"
-          className="collapse"
-          aria-labelledby="headingTwo"
-          data-parent="#accordionSidebar"
-        >
-          <div className="bg-white py-2 collapse-inner rounded">
-            <h6 className="collapse-header">Deposit:</h6>
+            <div
+              id="Deposit"
+              className="collapse"
+              aria-labelledby="headingTwo"
+              data-parent="#accordionSidebar"
+            >
+              <div className="bg-white py-2 collapse-inner rounded">
+                <h6 className="collapse-header">Deposit:</h6>
 
-            <a href="/deposit/baru" className="collapse-item">
-              <i className="fas fa-plus"></i> Isi Saldo
-            </a>
-            <a className="collapse-item" href="/deposit/riwayat">
-              <i className="fas fa-history"></i> Riwayat Deposit
-            </a>
-          </div>
-        </div>
-      </li>
-      <li className="nav-item">
+                <a href="/deposit/baru" className="collapse-item">
+                  <i className="fas fa-plus"></i> Isi Saldo
+                </a>
+                <a className="collapse-item" href="/deposit/riwayat">
+                  <i className="fas fa-history"></i> Riwayat Deposit
+                </a>
+              </div>
+            </div>
+          </li>
+        </>
+      )}
+      {/* <li className="nav-item">
         <a
           className="nav-link collapsed"
           href="#"
@@ -237,6 +241,12 @@ export default function Sidebar(props) {
             </a>
           </div>
         </div>
+      </li> */}
+      <li className="nav-item">
+        <a className="nav-link" href="/kontak">
+          <i className="fas fa-phone"></i>
+          <span>Kontak</span>
+        </a>
       </li>
       <li className="nav-item">
         <a className="nav-link" href="/layanan/daftar-layanan">
