@@ -81,7 +81,25 @@ export default function History(props) {
                         <td>{e.balanceBefore}</td>
                         <td>{e.balanceAfter}</td>
                         <td>{e.createdAt}</td>
-                        <td>{e.orderStatus}</td>
+                        <td>
+                          {e.orderStatus == "success" ? (
+                            <button className="btn btn-success btn-sm">
+                              SUCCESS
+                            </button>
+                          ) : e.orderStatus == "failed" ? (
+                            <button className="btn btn-danger btn-sm">
+                              {e.orderStatus.toUpperCase()}
+                            </button>
+                          ) : e.orderStatus == "partial" ? (
+                            <button className="btn btn-warning btn-sm">
+                              {e.orderStatus.toUpperCase()}
+                            </button>
+                          ) : (
+                            <button className="btn btn-primary btn-sm">
+                              {e.orderStatus.toUpperCase()}
+                            </button>
+                          )}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
