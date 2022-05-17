@@ -5,7 +5,8 @@ export default async function middleware(req) {
   if (
     req.url.includes("api") ||
     req.url.includes("assets") ||
-    req.url.includes("favicon")
+    req.url.includes("favicon") ||
+    req.url.includes("forgot")
   )
     return NextResponse.next();
   if (!req.page.name) return NextResponse.next();

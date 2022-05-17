@@ -4,78 +4,67 @@ import Swal from "sweetalert2";
 import { parseCookies, setCookie, destroyCookie } from "nookies";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import Script from "next/script";
-import Js from "../layouts/js";
 import Link from "next/link";
-import { getCsrfToken, getSession } from "next-auth/react";
-import { useSession, signIn, signOut } from "next-auth/react";
-
-export async function getServerSideProps(context) {
-  return {
-    props: {
-      csrfToken: await getCsrfToken(context),
-    },
-  };
-}
+import { useSession, signIn } from "next-auth/react";
 
 export default function Login({ csrfToken }) {
   const session = useSession();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const router = useRouter();
-  async function login(e) {
+  const forgot = async (e) => {
     e.preventDefault();
-    signIn("credentials", { username, password, redirect: false }).then((e) => {
-      if (e.error)
-        return Swal.fire({
-          title: "Upsss!",
-          text: e.error,
-          icon: "error",
-        });
-
-      return router.reload();
-    });
-
-    return;
-    axios
-      .post(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/user/login`,
-        {
-          username,
-          password,
+    try {
+      Swal.fire({
+        title: "Sedang Mengirim...",
+        html: "Mohon Bersabar 😇<br/> Jangan Keluar Dari Halaman Ini! ⛔",
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        didOpen: () => {
+          Swal.showLoading();
         },
-        {
-          withCredentials: true,
-        }
-      )
-      .then((e) => {
-        setCookie(null, "jwt", e.data.token);
-        router.push("/dashboard");
-      })
-      .catch((e) => {
-        // console.log(e);
-        // if (e.response.status == 200) return;
-        Swal.fire({
-          title: "Upsss!",
-          text: e.response?.data?.msg,
-          icon: "error",
-        });
       });
+      const send = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/user/send-forgot-email`,
+        {
+          email,
+        }
+      );
+      Swal.close();
+      Swal.fire({
+        icon: "success",
+        text: send.data.msg,
+      });
+      setCookie(null, "verid", send.data.id, {
+        maxAge: 600, // 10 minutes,
+        path: "/",
+      });
+      setCookie(null, "vermail", email, {
+        maxAge: 600, // 10 minutes,
+        path: "/",
+      });
+      router.push("/forgot/1");
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        text: error.response.data.msg || error.message,
+      });
+    }
+  };
 
-    //   setCookie("token", response.data.token);
-    //   setAlert({ message: "LOGIN BERHASIL", status: "success" });
-
-    //       setAlert({
-    //         status: "danger",
-    //         message: error.response.data.msg,
-    //       });
+  function load() {
+    const cookies = parseCookies();
+    if (cookies.verid) return router.push("/forgot/1");
   }
+
+  useEffect(() => {
+    load();
+  }, []);
 
   return (
     <>
       <div className="container">
         <Head>
-          <title>MASUK</title>
+          <title>Lupa Kata Sandi</title>
         </Head>
         {/* <!-- Outer Row --> */}
         <div
@@ -99,12 +88,12 @@ export default function Login({ csrfToken }) {
                     <div className="p-5">
                       <div className="text-center">
                         <h1 className="h4 text-gray-900 mb-4 font-weight-bold">
-                          MASUK
+                          MASUKAN EMAIL AKUN ANDA
                         </h1>
                       </div>
                       <form
                         className="user"
-                        onSubmit={login}
+                        onSubmit={forgot}
                         // method="post"
                         // action="/api/auth/callback/credentials"
                       >
@@ -115,24 +104,14 @@ export default function Login({ csrfToken }) {
                         />
                         <div className="form-group">
                           <input
-                            onChange={(e) => setUsername(e.target.value)}
+                            onChange={(e) => setEmail(e.target.value)}
                             type="text"
                             className="form-control form-control-user"
                             id="exampleInputEmail"
                             aria-describedby="emailHelp"
-                            placeholder="Masukkan Email / Username"
+                            placeholder="Masukkan Email"
                             autoCapitalize="off"
                             name="username"
-                          />
-                        </div>
-                        <div className="form-group">
-                          <input
-                            onChange={(e) => setPassword(e.target.value)}
-                            type="password"
-                            className="form-control form-control-user"
-                            id="exampleInputPassword"
-                            placeholder="Password"
-                            name="password"
                           />
                         </div>
 
@@ -140,24 +119,9 @@ export default function Login({ csrfToken }) {
                           type="submit"
                           className="btn btn-dark btn-user btn-block"
                         >
-                          MASUK
+                          Kirim Kode Verifikasi
                         </button>
                       </form>
-                      <hr />
-                      <div className="row">
-                        {" "}
-                        <div className="text-center col-6">
-                          <Link href="/forgot">
-                            {" "}
-                            <a className="small">Lupa Password?</a>
-                          </Link>
-                        </div>
-                        <div className="text-center col-6">
-                          <Link href="/register">
-                            <a className="small">Daftar Sekarang!</a>
-                          </Link>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
