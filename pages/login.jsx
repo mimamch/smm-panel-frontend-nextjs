@@ -148,7 +148,6 @@ export default function Login({ csrfToken }) {
                         {" "}
                         <div className="text-center col-6">
                           <Link href="/forgot">
-                            {" "}
                             <a className="small">Lupa Password?</a>
                           </Link>
                         </div>
