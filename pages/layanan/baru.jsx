@@ -285,6 +285,7 @@ export default function Services(props) {
                         type="number"
                         className="form-control"
                         placeholder="Masukkan Jumlah"
+                        value={quantity}
                         onChange={(e) => {
                           setquantity(e.target.value);
                           hargaBayar(e.target.value);
