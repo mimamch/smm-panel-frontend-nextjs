@@ -95,7 +95,11 @@ export default function Register() {
                           Daftar
                         </h1>
                       </div>
-                      <form className="user" onSubmit={register}>
+                      <form
+                        className="user"
+                        onSubmit={register}
+                        data-aos="slide-right"
+                      >
                         <div className="form-group">
                           <input
                             onChange={(e) => setFullName(e.target.value)}
@@ -159,7 +163,7 @@ export default function Register() {
                           type="submit"
                           className="btn btn-dark btn-user btn-block"
                         >
-                          MASUK
+                          Daftar Sekarang
                         </button>
                       </form>
                       <hr />

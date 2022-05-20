@@ -8,7 +8,10 @@ export default function Topbar(props) {
 
   if (props.isHome) {
     return (
-      <nav className="navbar navbar-expand-lg navbar-light homenav">
+      <nav
+        className="navbar navbar-expand-lg navbar-light homenav"
+        data-aos="slide-down"
+      >
         {" "}
         <a className="navbar-brand homenavtitle" href="/">
           💕

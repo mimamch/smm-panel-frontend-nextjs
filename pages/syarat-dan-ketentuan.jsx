@@ -24,7 +24,7 @@ export default function Sk() {
           className="row mt-7 justify-content-center "
         >
           <div className="col-12 col-md-9">
-            <div className="card">
+            <div className="card" data-aos="slide-up">
               <div className="card-header">Syarat Dan Ketentuan SMM</div>
               <div className="card-body">
                 <ol>
@@ -139,35 +139,35 @@ export default function Sk() {
                     <ul>
                       <li>
                         Kami sama sekali tidak bertanggung jawab atas kerugian
-                        yang mungkin terjadi pada bisnis anda.{" "}
-                        <li>
-                          SmmAgen .com tidak bertanggung jawab jika terjadi
-                          penanguhan akun,penghapusan foto atau video atau
-                          bahkan pembokiran akun sosial media anda.
-                        </li>
-                        <li>
-                          Kami tidak bertanggung jawab atas penyalahgunaan
-                          layanan yang kami sediakan.
-                        </li>
-                        <li>
-                          Kami tidak bertanggung jawab mengisi ulang
-                          followers/subscribe/like pada pesanan yang diubah
-                          username/linknya selama masa garansi belum berakhir.
-                        </li>
-                        <li>
-                          Kami tidak bertanggung jawab atas kesalahan input
-                          target yang dilakukan oleh pengguna.
-                        </li>{" "}
-                        <li>
-                          Kami tidak akan mengisi ulang jika followers/like yang
-                          anda pesan berkurang/unfollow setelah pesanan sukses.
-                        </li>
-                        <li>
-                          Kami dapat menghentikan layanan kapanpun tanpa
-                          pemberitahuan terlebih dahulu{" "}
-                        </li>{" "}
-                        <li>Kami di bebaskan dari segala tuntutan hukum</li>
+                        yang mungkin terjadi pada bisnis anda.
                       </li>
+                      <li>
+                        SmmAgen .com tidak bertanggung jawab jika terjadi
+                        penanguhan akun,penghapusan foto atau video atau bahkan
+                        pembokiran akun sosial media anda.
+                      </li>
+                      <li>
+                        Kami tidak bertanggung jawab atas penyalahgunaan layanan
+                        yang kami sediakan.
+                      </li>
+                      <li>
+                        Kami tidak bertanggung jawab mengisi ulang
+                        followers/subscribe/like pada pesanan yang diubah
+                        username/linknya selama masa garansi belum berakhir.
+                      </li>
+                      <li>
+                        Kami tidak bertanggung jawab atas kesalahan input target
+                        yang dilakukan oleh pengguna.
+                      </li>
+                      <li>
+                        Kami tidak akan mengisi ulang jika followers/like yang
+                        anda pesan berkurang/unfollow setelah pesanan sukses.
+                      </li>
+                      <li>
+                        Kami dapat menghentikan layanan kapanpun tanpa
+                        pemberitahuan terlebih dahulu
+                      </li>
+                      <li>Kami di bebaskan dari segala tuntutan hukum</li>
                     </ul>
                   </li>
                   <li>

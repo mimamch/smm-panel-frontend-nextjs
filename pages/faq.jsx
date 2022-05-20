@@ -25,7 +25,7 @@ export default function Faq() {
           className="row mt-7 justify-content-center "
         >
           <div className="col-12 col-md-9 text-gray-600">
-            <div className="card">
+            <div className="card" data-aos="slide-up">
               <div className="card-header">Pertanyaan Umum</div>
               <div className="card-body">
                 <ul className="list-group list-unstyled">

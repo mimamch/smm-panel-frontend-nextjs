@@ -2,6 +2,7 @@ import Head from "next/head";
 import Wrapper from "../layouts/wrapper";
 import Link from "next/link";
 import { getSession } from "next-auth/react";
+
 export const getServerSideProps = async (ctx) => {
   try {
     const props = await getSession(ctx);
@@ -24,6 +25,7 @@ export const getServerSideProps = async (ctx) => {
 };
 export default function Home(props) {
   const isLogin = props.isLogin;
+
   return (
     <>
       <Head>
@@ -44,7 +46,10 @@ export default function Home(props) {
           <div className="container-fluid">
             <div className="row mt-7">
               <div className="col-lg-9 text-center align-items-center justify-content-center mx-auto">
-                <h2 className=" headingTitle text-gray-800 text-gradient">
+                <h2
+                  className=" headingTitle text-gray-800 text-gradient"
+                  data-aos="slide-down"
+                >
                   NUSANTARA SMM
                 </h2>
                 <ul className="list-unstyled heading-text">
@@ -56,7 +61,10 @@ export default function Home(props) {
                   {!isLogin ? (
                     <>
                       <Link href="/login">
-                        <a className="btn btn-dark btn-lg  btn-icon-split m-2 ">
+                        <a
+                          data-aos="slide-right"
+                          className="btn btn-dark btn-lg  btn-icon-split m-2 "
+                        >
                           <span className="icon text-gray-600">
                             <i className="fas fa-sign-in-alt text-gray-200"></i>
                           </span>
@@ -64,7 +72,10 @@ export default function Home(props) {
                         </a>
                       </Link>
                       <Link href="/register">
-                        <a className="btn btn-primary  btn-icon-split btn-lg m-2">
+                        <a
+                          data-aos="slide-left"
+                          className="btn btn-primary  btn-icon-split btn-lg m-2"
+                        >
                           <span className="icon text-gray-600">
                             <i className="fas fa-users text-gray-200"></i>
                           </span>
@@ -91,7 +102,7 @@ export default function Home(props) {
         </section>
         <section className="py-lg-5">
           <div className="container">
-            <div className="row text-gray-700">
+            <div className="row text-gray-700 " data-aos="fade-up">
               <div className="col-lg-8 offset-lg-2 overview-box">
                 <div className="facts-box text-center">
                   <div className="row">
@@ -118,7 +129,7 @@ export default function Home(props) {
         <hr className="mt-5 mb-5" />
         <section className="section py-lg-5">
           <div className="container">
-            <div className="row text-gray-700">
+            <div className="row text-gray-700" data-aos="zoom-in-down">
               <div className="col-sm">
                 <div className="features-box text-center">
                   <div className="feature-icon">
@@ -161,7 +172,7 @@ export default function Home(props) {
         <hr />
         <section className="section mt-5 mb-5 py-lg-5" id="faqs">
           <div className="container">
-            <div className="row text-center">
+            <div className="row text-center" data-aos="slide-left">
               <div className="col-sm-12">
                 <h2 className="title text-gray-800">Pertanyaan Umum</h2>
                 <p className="title-alt">

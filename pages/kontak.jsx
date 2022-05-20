@@ -20,7 +20,7 @@ export default function Kontak() {
           className="row mt-7 justify-content-center "
         >
           <div className="col-12 col-md-9">
-            <div className="card">
+            <div className="card" data-aos="slide-right">
               <div className="card-header">Kontak</div>
               <div className="card-body">
                 <ul className="list-group list-unstyled">
@@ -37,7 +37,7 @@ export default function Kontak() {
                             rel="noopener noreferrer"
                             className="text-dark"
                           >
-                            <u>Muhamamd Imam Choirudin</u>
+                            <u>Muhammad Imam Choirudin</u>
                           </a>
                         </p>
                       </div>

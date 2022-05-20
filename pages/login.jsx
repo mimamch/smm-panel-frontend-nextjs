@@ -75,7 +75,7 @@ export default function Login({ csrfToken }) {
     <>
       <div className="container">
         <Head>
-          <title>MASUK</title>
+          <title>MASUK - NUSANTARA SMM</title>
         </Head>
         {/* <!-- Outer Row --> */}
         <div
@@ -105,6 +105,7 @@ export default function Login({ csrfToken }) {
                       <form
                         className="user"
                         onSubmit={login}
+                        data-aos="slide-left"
                         // method="post"
                         // action="/api/auth/callback/credentials"
                       >
