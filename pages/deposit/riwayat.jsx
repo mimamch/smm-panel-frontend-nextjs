@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import Wrapper from "../../layouts/wrapper";
 import Link from "next/link";
 import IDRConverter from "../../layouts/components/IDRConverter";
+const router = require("next/router");
 
 export async function getServerSideProps(ctx) {
   try {
@@ -30,7 +31,7 @@ export async function getServerSideProps(ctx) {
   }
 }
 
-export default function History({ history }) {
+export default function History({ history, ...props }) {
   useEffect(() => {
     $(document).ready(function () {
       $("#dataTable").DataTable({
@@ -41,6 +42,27 @@ export default function History({ history }) {
       });
     });
   }, []);
+
+  const cancel = async (e) => {
+    if (e.status != "pending") return;
+    try {
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/deposit/cancel-deposit`,
+        // `http://localhost:5000/api/v2/deposit/cancel-deposit`,
+        {
+          id: e._id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${props.user.token}`,
+          },
+        }
+      );
+      router.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -90,6 +112,7 @@ export default function History({ history }) {
                         <td>{e.createdAt}</td>
                         <td>
                           <span
+                            onClick={() => cancel(e)}
                             className={`btn btn-${
                               e.status == "success"
                                 ? "success"
@@ -98,7 +121,9 @@ export default function History({ history }) {
                                 : "danger"
                             }`}
                           >
-                            {e.status.toUpperCase()}
+                            {e.status == "pending"
+                              ? "BATALKAN"
+                              : e.status.toUpperCase()}
                           </span>
                         </td>
                       </tr>

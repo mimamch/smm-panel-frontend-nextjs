@@ -49,7 +49,6 @@ export default function Payment(props) {
   };
   const cancel = async () => {
     try {
-      console.log(id);
       await axios.post(
         `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/deposit/cancel-deposit`,
         // `http://localhost:5000/api/v2/deposit/cancel-deposit`,
