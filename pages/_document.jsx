@@ -68,6 +68,10 @@ export default function Document() {
           sizes="16x16"
           href="/favicon-16x16.png"
         />
+        <script
+          src="/assets/vendor/jquery/jquery.min.js"
+          strategy="beforeInteractive"
+        />
       </Head>
       <body>
         <Main />

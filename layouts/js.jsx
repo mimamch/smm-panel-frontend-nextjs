@@ -3,10 +3,6 @@ import Script from "next/script";
 export default function Js(props) {
   return (
     <>
-      <Script
-        src="/assets/vendor/jquery/jquery.min.js"
-        strategy="beforeInteractive"
-      />
       <Script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js" />
 
       {!props.isHome && (

@@ -108,7 +108,7 @@ export default function Login() {
                             onChange={(e) => setPassword(e.target.value)}
                             type="password"
                             className="form-control form-control-user"
-                            id="exampleInputEmail"
+                            id="inputpass"
                             aria-describedby="emailHelp"
                             placeholder="Password Baru"
                             autoCapitalize="off"
@@ -122,7 +122,7 @@ export default function Login() {
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             type="password"
                             className="form-control form-control-user"
-                            id="exampleInputEmail"
+                            id="inputconfirmpass"
                             aria-describedby="emailHelp"
                             placeholder="Konfirmasi Password Baru"
                             autoCapitalize="off"
