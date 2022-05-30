@@ -44,7 +44,7 @@ export default function History({ history, ...props }) {
   }, []);
 
   const cancel = async (e) => {
-    if (e.status != "pending") return;
+    if (e.status != "pending" || e.bank.isAuto) return;
     try {
       await axios.post(
         `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/deposit/cancel-deposit`,
@@ -117,11 +117,11 @@ export default function History({ history, ...props }) {
                               e.status == "success"
                                 ? "success"
                                 : e.status == "pending"
-                                ? "warning"
+                                ? "warning text-dark"
                                 : "danger"
                             }`}
                           >
-                            {e.status == "pending"
+                            {e.status == "pending" && !e.bank.isAuto
                               ? "BATALKAN"
                               : e.status.toUpperCase()}
                           </span>
