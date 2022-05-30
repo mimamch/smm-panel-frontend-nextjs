@@ -46,12 +46,12 @@ export default function Home(props) {
           <div className="container-fluid">
             <div className="row mt-7">
               <div className="col-lg-9 text-center align-items-center justify-content-center mx-auto">
-                <h2
+                <h1
                   className=" headingTitle text-gray-800 text-gradient"
                   data-aos="slide-down"
                 >
                   NUSANTARA SMM
-                </h2>
+                </h1>
                 <ul className="list-unstyled heading-text">
                   <li>SMM Termurah Se-Indonesia 😍</li>
                   <li>Server Tercepat Di Indonesia 💕</li>
