@@ -2,6 +2,7 @@ import axios from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
+import dateConverter from "../../layouts/components/dateConverter";
 import Wrapper from "../../layouts/wrapper";
 
 export const getServerSideProps = async () => {
@@ -78,7 +79,7 @@ export default function User(props) {
                       <td>{e.amount}</td>
                       <td>{e.balanceBefore || "-"}</td>
                       <td>{e.balanceAfter || "-"}</td>
-                      <td>{e.createdAt}</td>
+                      <td>{dateConverter(e.createdAt)}</td>
                       <td>
                         {e.orderStatus == "success" ? (
                           <button className="btn btn-success btn-sm">

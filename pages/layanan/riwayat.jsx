@@ -3,6 +3,7 @@ import { getSession } from "next-auth/react";
 import Head from "next/head";
 import Script from "next/script";
 import { useEffect } from "react";
+import dateConverter from "../../layouts/components/dateConverter";
 import IDRConverter from "../../layouts/components/IDRConverter";
 import Wrapper from "../../layouts/wrapper";
 
@@ -81,7 +82,7 @@ export default function History(props) {
                         <td style={{ maxWidth: "15vw" }}>{e.target || "-"}</td>
                         <td>{IDRConverter(e.balanceBefore)}</td>
                         <td>{IDRConverter(e.balanceAfter)}</td>
-                        <td>{e.createdAt}</td>
+                        <td>{dateConverter(e.createdAt)}</td>
                         <td>
                           {e.orderStatus == "success" ? (
                             <button className="btn btn-success btn-sm">

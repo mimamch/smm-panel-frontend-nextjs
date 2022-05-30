@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import Wrapper from "../../layouts/wrapper";
 import Link from "next/link";
 import IDRConverter from "../../layouts/components/IDRConverter";
+import dateConverter from "../../layouts/components/dateConverter";
 const router = require("next/router");
 
 export async function getServerSideProps(ctx) {
@@ -19,6 +20,7 @@ export async function getServerSideProps(ctx) {
         },
       }
     );
+
     return {
       props: {
         user: session.user,
@@ -104,12 +106,18 @@ export default function History({ history, ...props }) {
                       <tr key={e._id}>
                         <td>{i + 1}</td>
                         <td>
-                          <Link href={`/deposit/payment/${e._id}`}>
-                            {e._id}
+                          <Link
+                            href={
+                              e.redirectUrl
+                                ? e.redirectUrl
+                                : `/deposit/payment/${e._id}`
+                            }
+                          >
+                            <a target="_blank">{e._id}</a>
                           </Link>
                         </td>
                         <td>{IDRConverter(e.nominal)}</td>
-                        <td>{e.createdAt}</td>
+                        <td>{dateConverter(e.createdAt)}</td>
                         <td>
                           <span
                             onClick={() => cancel(e)}

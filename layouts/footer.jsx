@@ -1,9 +1,9 @@
 import React from "react";
 export default function Footer() {
   return (
-    <footer className="sticky-footer bg-gray-800 text-gray-100">
+    <footer className="sticky-footer bg-gray-800 text-gray-100 py-3">
       <div className="container my-auto">
-        <div className="copyright text-center my-auto">
+        <div className="copyright text-center my-auto ">
           <span>
             Copyright ©️ 2022, All Right Reserved. With ❤️{" "}
             <a
