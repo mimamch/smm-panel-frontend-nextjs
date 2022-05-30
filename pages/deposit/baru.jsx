@@ -76,6 +76,7 @@ export default function DepositBaru(props) {
         if (send.data.msg.redirectUrl) {
           return window.open(send.data.msg.redirectUrl);
         }
+
         router.push("/deposit/payment/" + send.data.msg._id);
       } catch (error) {
         console.log(error);
