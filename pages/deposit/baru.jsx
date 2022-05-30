@@ -73,6 +73,9 @@ export default function DepositBaru(props) {
         //   Sejumlah : <b>${send.data.msg.nominal}</b><br/>
         //   Lalu hubungi ADMIN <a href="https://wa.me/6285838707828">DI SINI</a>`,
         // });
+        if (send.data.msg.redirectUrl) {
+          return window.open(send.data.msg.redirectUrl);
+        }
         router.push("/deposit/payment/" + send.data.msg._id);
       } catch (error) {
         console.log(error);
