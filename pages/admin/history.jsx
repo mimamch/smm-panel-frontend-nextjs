@@ -35,11 +35,11 @@ export default function User(props) {
       <div className="container-fluid">
         {/* <!-- Page Heading --> */}
         <div className="d-sm-flex align-items-center justify-content-between mb-4">
-          <h1 className="h3 mb-0 text-gray-800">Daftar Deposit</h1>
+          <h1 className="h3 mb-0 text-gray-800">Daftar Pesanan User</h1>
         </div>
         <div className="card shadow mb-4">
           <div className="card-header py-3">
-            <h6 className="m-0 font-weight-bold text-primary">DEPOSIT</h6>
+            <h6 className="m-0 font-weight-bold text-primary">PESANAN</h6>
           </div>
           <div className="card-body">
             <div className="table-responsive">

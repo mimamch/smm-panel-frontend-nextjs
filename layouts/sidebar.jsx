@@ -291,6 +291,9 @@ export default function Sidebar(props) {
               <a className="collapse-item" href="/admin/history">
                 <i className="fas fa-history"></i> History Pesanan
               </a>
+              <a className="collapse-item" href="/admin/announcements">
+                <i className="fas fa-history"></i> Pengumuman
+              </a>
             </div>
           </div>
         </li>
