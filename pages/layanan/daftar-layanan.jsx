@@ -7,26 +7,41 @@ import IDRConverter from "../../layouts/components/IDRConverter";
 import Wrapper from "../../layouts/wrapper";
 import parse from "html-react-parser";
 
-export const getServerSideProps = async () => {
-  try {
-    const category = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/services/category`
-    );
-    return {
-      props: {
-        category: category.data.data,
-      },
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      props: {},
-    };
-  }
-};
+// export const getServerSideProps = async () => {
+//   try {
+//     const category = await axios.get(
+//       `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/services/category`
+//     );
+//     return {
+//       props: {
+//         category: category.data.data,
+//       },
+//     };
+//   } catch (error) {
+//     console.log(error);
+//     return {
+//       props: {},
+//     };
+//   }
+// };
 
-export default function DaftarLayanan({ category }) {
+export default function DaftarLayanan() {
   const [services, setservices] = useState([]);
+  const [category, setCategory] = useState([]);
+
+  const getCategory = async () => {
+    try {
+      const category = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/services/category`
+      );
+      setCategory(category.data.data);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    getCategory();
+  }, []);
+
   const selectedCategory = async (cat) => {
     try {
       Swal.fire({
@@ -104,7 +119,7 @@ export default function DaftarLayanan({ category }) {
               <div className="table-responsive">
                 <table
                   className="table table-bordered"
-                  id="dataTable"
+                  // id="dataTable"
                   width="100%"
                   cellSpacing="0"
                 >

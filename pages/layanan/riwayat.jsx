@@ -2,28 +2,20 @@ import axios from "axios";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
 import Script from "next/script";
+import { useState } from "react";
 import { useEffect } from "react";
 import dateConverter from "../../layouts/components/dateConverter";
 import IDRConverter from "../../layouts/components/IDRConverter";
+import UseScript from "../../layouts/useScript";
 import Wrapper from "../../layouts/wrapper";
 
 export async function getServerSideProps(ctx) {
   try {
     const session = await getSession(ctx);
-    const history = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_ENDPOINT}/user/history`,
-      {
-        params: {
-          api: 2,
-        },
-        headers: {
-          Authorization: `Bearer ${session.user.token}`,
-        },
-      }
-    );
+
     return {
       props: {
-        history: history.data,
+        token: session.user.token,
       },
     };
   } catch (error) {
@@ -33,6 +25,31 @@ export async function getServerSideProps(ctx) {
 }
 
 export default function History(props) {
+  const [history, setHistory] = useState([]);
+
+  const getHistory = async () => {
+    const his = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT}/user/history`,
+      {
+        params: {
+          api: 2,
+        },
+        headers: {
+          Authorization: `Bearer ${props.token}`,
+        },
+      }
+    );
+
+    setHistory(his.data.history);
+    $(document).ready(function () {
+      $("#riwayatTable").DataTable();
+    });
+  };
+
+  useEffect(() => {
+    getHistory();
+  }, []);
+
   return (
     <>
       <Head>
@@ -54,12 +71,13 @@ export default function History(props) {
               <div className="table-responsive">
                 <table
                   className="table table-bordered"
-                  id="dataTable"
+                  id="riwayatTable"
                   width="100%"
                   cellSpacing="0"
                 >
                   <thead>
                     <tr>
+                      <th>No.</th>
                       <th>ID Pesanan</th>
                       <th>Layanan</th>
                       <th>Jumlah</th>
@@ -73,8 +91,9 @@ export default function History(props) {
                   </thead>
 
                   <tbody>
-                    {props.history.history.map((e) => (
+                    {history.map((e, i) => (
                       <tr key={e.orderId}>
+                        <td>{i + 1}</td>
                         <td>{e.orderId}</td>
                         <td>{e.serviceName}</td>
                         <td>{e.quantity}</td>

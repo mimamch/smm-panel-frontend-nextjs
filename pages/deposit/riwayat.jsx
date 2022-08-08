@@ -2,7 +2,7 @@ import axios from "axios";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
 import Script from "next/script";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Wrapper from "../../layouts/wrapper";
 import Link from "next/link";
 import IDRConverter from "../../layouts/components/IDRConverter";
@@ -12,19 +12,10 @@ const router = require("next/router");
 export async function getServerSideProps(ctx) {
   try {
     const session = await getSession(ctx);
-    const history = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/deposit/history`,
-      {
-        headers: {
-          Authorization: `Bearer ${session.user.token}`,
-        },
-      }
-    );
 
     return {
       props: {
         user: session.user,
-        history: history.data.msg,
       },
     };
   } catch (error) {
@@ -33,16 +24,39 @@ export async function getServerSideProps(ctx) {
   }
 }
 
-export default function History({ history, ...props }) {
-  useEffect(() => {
+export default function History({ user, ...props }) {
+  // useEffect(() => {
+  //   $(document).ready(function () {
+  //     $("#dataTable").DataTable({
+  //       searching: false,
+  //       order: [[0, "desc"]],
+  //       bDestroy: true,
+  //       paging: false,
+  //     });
+  //   });
+  // }, []);
+
+  const [history, setHistory] = useState([]);
+
+  const getHistory = async () => {
+    const his = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/deposit/history`,
+      {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
+    setHistory(his.data.msg);
     $(document).ready(function () {
-      $("#dataTable").DataTable({
-        searching: false,
+      $("#historyTable").DataTable({
         order: [[0, "desc"]],
-        bDestroy: true,
-        paging: false,
       });
     });
+  };
+
+  useEffect(() => {
+    getHistory();
   }, []);
 
   const cancel = async (e) => {
@@ -87,7 +101,7 @@ export default function History({ history, ...props }) {
               <div className="table-responsive">
                 <table
                   className="table table-bordered"
-                  id="dataTable"
+                  id="historyTable"
                   width="100%"
                   cellSpacing="0"
                 >

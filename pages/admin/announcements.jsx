@@ -1,7 +1,7 @@
 import axios from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Wrapper from "../../layouts/wrapper";
 
 export const getServerSideProps = async () => {
@@ -22,10 +22,25 @@ export const getServerSideProps = async () => {
 };
 
 export default function Announcements(props) {
-  const router = useRouter();
   const [title, settitle] = useState("");
   const [text, settext] = useState("");
-  const [announcements, setAnnouncements] = useState(props.announcements);
+  const [announcements, setAnnouncements] = useState([]);
+  const [data, setData] = useState([]);
+
+  const get = async () => {
+    const his = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/announcements`
+    );
+    setAnnouncements(his.data.data);
+    $(document).ready(function () {
+      $("#table").DataTable({});
+    });
+  };
+
+  useEffect(() => {
+    get();
+  }, []);
+
   const tambah = async (e) => {
     e.preventDefault();
     try {
@@ -98,7 +113,7 @@ export default function Announcements(props) {
             <div className="table-responsive">
               <table
                 className="table table-bordered"
-                id="dataTable"
+                id="table"
                 width="100%"
                 cellSpacing="0"
               >

@@ -1,29 +1,26 @@
 import axios from "axios";
 import Head from "next/head";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import IDRConverter from "../../layouts/components/IDRConverter";
 import Wrapper from "../../layouts/wrapper";
 
-export const getServerSideProps = async () => {
-  try {
-    const user = await axios.get(
+export default function User() {
+  const [data, setData] = useState([]);
+
+  const get = async () => {
+    const his = await axios.get(
       `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/user/get-user`
     );
-    // console.log(user);
-    return {
-      props: {
-        user: user.data.data,
-      },
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      props: {},
-    };
-  }
-};
+    setData(his.data.data);
+    $(document).ready(function () {
+      $("#table").DataTable({});
+    });
+  };
 
-export default function User(props) {
+  useEffect(() => {
+    get();
+  }, []);
+
   return (
     <Wrapper>
       <Head>
@@ -42,12 +39,13 @@ export default function User(props) {
             <div className="table-responsive">
               <table
                 className="table table-bordered"
-                id="dataTable"
+                id="table"
                 width="100%"
                 cellSpacing="0"
               >
                 <thead>
                   <tr>
+                    <th>No.</th>
                     <th>Username</th>
                     <th>Phone Number</th>
                     <th>Email</th>
@@ -58,8 +56,9 @@ export default function User(props) {
                 </thead>
 
                 <tbody>
-                  {props.user.map((e) => (
+                  {data.map((e, i) => (
                     <tr key={e._id}>
+                      <td>{i + 1}</td>
                       <td>{e.username}</td>
                       <td>{e.phoneNumber}</td>
                       <td>{e.email}</td>

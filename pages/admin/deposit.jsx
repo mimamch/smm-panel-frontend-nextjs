@@ -1,31 +1,29 @@
 import axios from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import dateConverter from "../../layouts/components/dateConverter";
 import Wrapper from "../../layouts/wrapper";
 
-export const getServerSideProps = async () => {
-  try {
-    const deposit = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/user/get-deposit`
-    );
-    // console.log(user);
-    return {
-      props: {
-        deposit: deposit.data.data,
-      },
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      props: {},
-    };
-  }
-};
-
 export default function User(props) {
   const router = useRouter();
+
+  const [data, setData] = useState([]);
+
+  const get = async () => {
+    const his = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/user/get-deposit`
+    );
+    setData(his.data.data);
+    $(document).ready(function () {
+      $("#table").DataTable({});
+    });
+  };
+
+  useEffect(() => {
+    get();
+  }, []);
+
   const accept = async (id) => {
     try {
       const res = await axios.post(
@@ -73,12 +71,13 @@ export default function User(props) {
             <div className="table-responsive">
               <table
                 className="table table-bordered"
-                id="dataTable"
+                id="table"
                 width="100%"
                 cellSpacing="0"
               >
                 <thead>
                   <tr>
+                    <td>No.</td>
                     <th>ID Deposit</th>
                     <th>Username</th>
                     <th>Nominal</th>
@@ -91,8 +90,9 @@ export default function User(props) {
                 </thead>
 
                 <tbody>
-                  {props.deposit.map((e) => (
+                  {data.map((e, i) => (
                     <tr key={e._id}>
+                      <td>{i + 1}</td>
                       <td>{e._id}</td>
                       <td>{e.user.username}</td>
                       <td>{e.nominal}</td>

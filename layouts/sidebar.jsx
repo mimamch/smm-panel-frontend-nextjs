@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Sidebar(props) {
   const isLogin = props.isLogin;
 
@@ -114,15 +116,14 @@ export default function Sidebar(props) {
       id="accordionSidebar"
     >
       {/* <!-- Sidebar - Brand --> */}
-      <a
-        className="sidebar-brand d-flex align-items-center justify-content-center"
-        href="/"
-      >
-        <div className="sidebar-brand-icon rotate-n-15">
-          <i className="fas fa-heart-broken"></i>
-        </div>
-        <div className="sidebar-brand-text mx-3">Halo 👋</div>
-      </a>
+      <Link href="/">
+        <a className="sidebar-brand d-flex align-items-center justify-content-center">
+          <div className="sidebar-brand-icon rotate-n-15">
+            <i className="fas fa-heart-broken"></i>
+          </div>
+          <div className="sidebar-brand-text mx-3">Halo 👋</div>
+        </a>
+      </Link>
 
       {/* <!-- Divider --> */}
       <hr className="sidebar-divider my-0" />
@@ -130,10 +131,12 @@ export default function Sidebar(props) {
       {/* <!-- Nav Item - Dashboard --> */}
 
       <li className="nav-item active">
-        <a className="nav-link" href="/dashboard">
-          <i className="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span>
-        </a>
+        <Link href="/dashboard">
+          <a className="nav-link" href="/dashboard">
+            <i className="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+          </a>
+        </Link>
       </li>
 
       {/* <!-- Divider --> */}
@@ -165,17 +168,22 @@ export default function Sidebar(props) {
             >
               <div className="bg-white py-2 collapse-inner rounded">
                 <h6 className="collapse-header">Pesanan:</h6>
+                <Link href="/layanan/baru">
+                  <a href="/layanan/baru" className="collapse-item">
+                    <i className="fas fa-plus"></i> Buat Pesanan
+                  </a>
+                </Link>
+                <Link href="/layanan/riwayat">
+                  <a className="collapse-item">
+                    <i className="fas fa-history"></i> Riwayat Pesanan
+                  </a>
+                </Link>
 
-                <a href="/layanan/baru" className="collapse-item">
-                  <i className="fas fa-plus"></i> Buat Pesanan
-                </a>
-                <a className="collapse-item" href="/layanan/riwayat">
-                  <i className="fas fa-history"></i> Riwayat Pesanan
-                </a>
-
-                <a className="collapse-item" href="/layanan/daftar-layanan">
-                  <i className="fas fa-list"></i> Daftar Layanan
-                </a>
+                <Link href="/layanan/daftar-layanan">
+                  <a className="collapse-item" href="/layanan/daftar-layanan">
+                    <i className="fas fa-list"></i> Daftar Layanan
+                  </a>
+                </Link>
               </div>
             </div>
           </li>
@@ -200,12 +208,16 @@ export default function Sidebar(props) {
               <div className="bg-white py-2 collapse-inner rounded">
                 <h6 className="collapse-header">Deposit:</h6>
 
-                <a href="/deposit/baru" className="collapse-item">
-                  <i className="fas fa-plus"></i> Isi Saldo
-                </a>
-                <a className="collapse-item" href="/deposit/riwayat">
-                  <i className="fas fa-history"></i> Riwayat Deposit
-                </a>
+                <Link href="/deposit/baru">
+                  <a href="/deposit/baru" className="collapse-item">
+                    <i className="fas fa-plus"></i> Isi Saldo
+                  </a>
+                </Link>
+                <Link href="/deposit/riwayat">
+                  <a className="collapse-item" href="/deposit/riwayat">
+                    <i className="fas fa-history"></i> Riwayat Deposit
+                  </a>
+                </Link>
               </div>
             </div>
           </li>
@@ -243,16 +255,20 @@ export default function Sidebar(props) {
         </div>
       </li> */}
       <li className="nav-item">
-        <a className="nav-link" href="/kontak">
-          <i className="fas fa-phone"></i>
-          <span>Kontak</span>
-        </a>
+        <Link href="/kontak">
+          <a className="nav-link" href="/kontak">
+            <i className="fas fa-phone"></i>
+            <span>Kontak</span>
+          </a>
+        </Link>
       </li>
       <li className="nav-item">
-        <a className="nav-link" href="/layanan/daftar-layanan">
-          <i className="fas fa-list"></i>
-          <span>Daftar Layanan</span>
-        </a>
+        <Link href="/layanan/daftar-layanan">
+          <a className="nav-link" href="/layanan/daftar-layanan">
+            <i className="fas fa-list"></i>
+            <span>Daftar Layanan</span>
+          </a>
+        </Link>
       </li>
       {/* <!-- Nav Item - Utilities Collapse Menu --> */}
 
@@ -282,18 +298,27 @@ export default function Sidebar(props) {
             <div className="bg-white py-2 collapse-inner rounded">
               <h6 className="collapse-header">Admin Menu:</h6>
 
-              <a href="/admin/user" className="collapse-item">
-                <i className="fas fa-plus"></i> Daftar User
-              </a>
-              <a className="collapse-item" href="/admin/deposit">
-                <i className="fas fa-history"></i> Daftar Deposit
-              </a>
-              <a className="collapse-item" href="/admin/history">
-                <i className="fas fa-history"></i> History Pesanan
-              </a>
-              <a className="collapse-item" href="/admin/announcements">
-                <i className="fas fa-history"></i> Pengumuman
-              </a>
+              <Link href="/admin/user">
+                <a href="/admin/user" className="collapse-item">
+                  <i className="fas fa-plus"></i> Daftar User
+                </a>
+              </Link>
+              <Link href="/admin/deposit">
+                <a className="collapse-item" href="/admin/deposit">
+                  <i className="fas fa-history"></i> Daftar Deposit
+                </a>
+              </Link>
+
+              <Link href="/admin/history">
+                <a className="collapse-item" href="/admin/history">
+                  <i className="fas fa-history"></i> History Pesanan
+                </a>
+              </Link>
+              <Link href="/admin/announcements">
+                <a className="collapse-item" href="/admin/announcements">
+                  <i className="fas fa-history"></i> Pengumuman
+                </a>
+              </Link>
             </div>
           </div>
         </li>

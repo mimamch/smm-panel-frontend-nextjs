@@ -1,31 +1,26 @@
 import axios from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import dateConverter from "../../layouts/components/dateConverter";
 import Wrapper from "../../layouts/wrapper";
 
-export const getServerSideProps = async () => {
-  try {
-    const history = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/user/get-all-history`
-      //   `http://localhost:5000/api/v2/user/get-all-history`
-    );
-    return {
-      props: {
-        history: history.data.data,
-      },
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      props: {},
-    };
-  }
-};
+export default function User() {
+  const [data, setData] = useState([]);
 
-export default function User(props) {
-  const router = useRouter();
+  const get = async () => {
+    const his = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/user/get-all-history`
+    );
+    setData(his.data.data);
+    $(document).ready(function () {
+      $("#table").DataTable({});
+    });
+  };
+
+  useEffect(() => {
+    get();
+  }, []);
 
   return (
     <Wrapper>
@@ -45,12 +40,13 @@ export default function User(props) {
             <div className="table-responsive">
               <table
                 className="table table-bordered"
-                id="dataTable"
+                id="table"
                 width="100%"
                 cellSpacing="0"
               >
                 <thead>
                   <tr>
+                    <th>No.</th>
                     <th>ID Pesanan</th>
                     <th>User</th>
                     <th>Service</th>
@@ -65,8 +61,9 @@ export default function User(props) {
                 </thead>
 
                 <tbody>
-                  {props.history.map((e) => (
+                  {data.map((e, i) => (
                     <tr key={e._id}>
+                      <td>{i + 1}</td>
                       <td style={{ maxWidth: "100px", wordWrap: "break-word" }}>
                         {e._id}
                       </td>

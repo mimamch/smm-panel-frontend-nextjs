@@ -10,18 +10,8 @@ import Wrapper from "../../layouts/wrapper";
 export const getServerSideProps = async (ctx) => {
   const session = await getSession(ctx);
   try {
-    const bank = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/deposit/get-bank`,
-      {
-        headers: {
-          Authorization: `Bearer ${session.user.token}`,
-        },
-      }
-    );
-
     return {
       props: {
-        bank: bank.data.data,
         token: session.user.token,
       },
     };
@@ -38,10 +28,28 @@ export default function DepositBaru(props) {
   const [tujuan, settujuan] = useState("");
   const [minimal, setminimal] = useState(0);
   const [jumlah, setjumlah] = useState(0);
+  const [bank, setBank] = useState([]);
+
   const [saldoDiterima, setsaldoDiterima] = useState(0);
   const changeTujuan = (val) => {
     settujuan(JSON.parse(val.target.value));
   };
+
+  const getBank = async () => {
+    const aa = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/deposit/get-bank`,
+      {
+        headers: {
+          Authorization: `Bearer ${props.token}`,
+        },
+      }
+    );
+    setBank(aa.data.data);
+  };
+
+  useEffect(() => {
+    getBank();
+  }, []);
 
   async function buatDeposit(e) {
     e.preventDefault();
@@ -127,7 +135,7 @@ export default function DepositBaru(props) {
                 <option value="" disabled>
                   Pilih Tujuan
                 </option>
-                {props.bank.map((e) => (
+                {bank.map((e) => (
                   <option key={e._id} value={JSON.stringify(e)}>
                     {e.bankName +
                       " " +

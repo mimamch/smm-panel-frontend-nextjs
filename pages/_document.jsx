@@ -72,6 +72,14 @@ export default function Document() {
           src="/assets/vendor/jquery/jquery.min.js"
           strategy="beforeInteractive"
         />
+         <script
+          src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"
+          strategy="beforeInteractive"
+        />
+        <script
+          src="/assets/vendor/datatables/jquery.dataTables.min.js"
+          strategy="beforeInteractive"
+        />
       </Head>
       <body>
         <Main />

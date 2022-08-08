@@ -38,20 +38,9 @@ import Swal from "sweetalert2";
 export const getServerSideProps = async (ctx) => {
   try {
     const { user } = await getSession(ctx);
-    const getUserProfile = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_ENDPOINT}/user/profile`,
-      {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
-    const announcements = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/announcements`
-    );
-    const userData = getUserProfile.data.data;
+
     return {
-      props: { userData, user, announcements: announcements.data.data },
+      props: { user },
     };
   } catch (error) {
     console.log(error);
@@ -59,15 +48,43 @@ export const getServerSideProps = async (ctx) => {
 };
 
 export default function Home(props) {
-  const userData = props.userData;
+  // const userData = props.userData;
+
+  const [userData, setUserData] = useState({});
+  const [announcements, setAnnouncements] = useState([]);
+
+  const getData = async () => {
+    const getUserProfile = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT}/user/profile`,
+      {
+        headers: {
+          Authorization: `Bearer ${props.user.token}`,
+        },
+      }
+    );
+    setUserData(getUserProfile.data.data);
+  };
+
+  const getAnnouncements = async () => {
+    const announcements = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/announcements`
+    );
+    setAnnouncements(announcements.data.data);
+  };
+
   useEffect(() => {
-    if (props?.announcements[0])
+    getData();
+    getAnnouncements();
+  }, []);
+
+  useEffect(() => {
+    if (announcements[0])
       Swal.fire({
-        title: props.announcements[0].title,
-        text: props.announcements[0].text,
+        title: announcements[0].title,
+        text: announcements[0].text,
         confirmButtonText: "Tutup",
       });
-  }, []);
+  }, [announcements]);
   return (
     <>
       <Head>
@@ -81,7 +98,7 @@ export default function Home(props) {
           </div>
           <div className="row">
             <div className="col-sm-6">
-              {props.announcements.map((e) => (
+              {announcements.map((e) => (
                 <div key={e._id} className="card shadow mb-4">
                   <div className="card-header py-3">
                     <h6 className="m-0 font-weight-bold text-danger">
